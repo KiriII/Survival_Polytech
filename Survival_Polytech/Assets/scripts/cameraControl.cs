@@ -13,15 +13,32 @@ public class cameraControl : MonoBehaviour {
     public int maxZoom;
     RaycastHit hit;
 
-    void Start() {
+    public Transform target;
+    public float smoothing = 5f;
 
+    Vector3 offset;
+    float speedMult;
+
+    void Start()
+    {        
+        offset = transform.position - target.position;
+        speedMult = speed / 100;
     }
+    
 
     void Update() {
 
         highPosition();
-        weightPosition();
 
+        if (Input.GetKey(KeyCode.LeftAlt)){
+            weightPosition();
+        }
+        else
+        {
+            Vector3 targetCamPos = target.position + offset;
+            
+            transform.position = Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
+        }
     }
 
     void highPosition()
@@ -44,12 +61,12 @@ public class cameraControl : MonoBehaviour {
         if (Input.GetAxis("Mouse ScrollWheel") > 0 && high > maxZoom)
         {
             high -= zoomSpeed * Time.deltaTime;
-            speed -= 0.007f;
+            speed -= speedMult;
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0 && high < minZoom)
         {
             high += zoomSpeed * Time.deltaTime;
-            speed += 0.007f;
+            speed += speedMult;
         }
     }
 

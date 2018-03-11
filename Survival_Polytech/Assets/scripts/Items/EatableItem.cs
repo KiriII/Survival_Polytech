@@ -10,11 +10,11 @@ public class EatableItem : Item {
     
    override public void Use()
     {
-        Debug.Log("Eat " + name);             
-                             
-                removeFromInventory();
-                CharacterStats.instance.Starvation(-eat);
-                CharacterStats.instance.EarnEXP(earnedEXP);           
-        
+        Debug.Log("Eat " + name);
+        removeFromInventory();
+        CharacterStats.instance.Starvation(-eat);
+        CharacterStats.instance.EarnEXP(earnedEXP);
+
+        NoteManager.instance.OpenNewNote("Food \n\n\n Press 'T' to win");        
     }
 }
