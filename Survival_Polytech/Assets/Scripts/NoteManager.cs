@@ -25,11 +25,13 @@ public class NoteManager : MonoBehaviour
 
     //string[] allNotes;
     Text noteText;
+    Image image;
 
     void Start()
     {
         noteText = note.GetComponentInChildren<Text>();
         UpdateText();
+        image = note.GetComponentInChildren<Image>();
     }
         
     void Update()
@@ -54,5 +56,10 @@ public class NoteManager : MonoBehaviour
     public void UpdateText()
     {
         noteText.text = text;
+    }
+
+    public void SetImage(Image newImage)
+    {
+        image = newImage;
     }
 }

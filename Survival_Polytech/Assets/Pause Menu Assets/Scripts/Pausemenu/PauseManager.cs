@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
+using UnityEngine.SceneManagement;
 //using UnityStandardAssets.ImageEffects;
 /// <summary>
 ///  Copyright (c) 2016 Eric Zhu 
@@ -142,7 +143,7 @@ namespace GreatArcStudios
         /// </summary>
         public Dropdown afCombo;
 
-        public Slider fovSlider;
+        //public Slider fovSlider;
         public Slider modelQualSlider;
         public Slider terrainQualSlider;
         public Slider highQualTreeSlider;
@@ -316,7 +317,7 @@ namespace GreatArcStudios
             aaQualINI = QualitySettings.antiAliasing;
             renderDistINI = mainCam.farClipPlane;
             shadowDistINI = QualitySettings.shadowDistance;
-            fovINI = mainCam.fieldOfView;
+           // fovINI = mainCam.fieldOfView;
             msaaINI = QualitySettings.antiAliasing;
             vsyncINI = QualitySettings.vSyncCount;
             //enable titles
@@ -360,7 +361,7 @@ namespace GreatArcStudios
         /// </summary>
         public void Restart()
         {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             uiEventSystem.firstSelectedGameObject = defualtSelectedMain;
         }
         /// <summary>
@@ -422,7 +423,7 @@ namespace GreatArcStudios
         /// </summary>
         public void returnToMenu()
         {
-            Application.LoadLevel(mainMenu);
+            SceneManager.LoadScene("MainMenu");
             uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
         }
 
@@ -717,7 +718,7 @@ namespace GreatArcStudios
                 afCombo.value = 2;
             }
             presetLabel.text = presets[QualitySettings.GetQualityLevel()].ToString();
-            fovSlider.value = mainCam.fieldOfView;
+            //fovSlider.value = mainCam.fieldOfView;
             modelQualSlider.value = QualitySettings.lodBias;
             renderDistSlider.value = mainCam.farClipPlane;
             shadowDistSlider.value = QualitySettings.shadowDistance;
@@ -777,7 +778,7 @@ namespace GreatArcStudios
             {
                 mainCam.farClipPlane = renderDistINI;
                 Terrain.activeTerrain.detailObjectDensity = densityINI;
-                mainCam.fieldOfView = fovINI;
+               // mainCam.fieldOfView = fovINI;
                 mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
                 audioPanel.SetActive(false);
@@ -797,7 +798,7 @@ namespace GreatArcStudios
 
                 Debug.Log("A problem occured (chances are the terrain was not assigned )");
                 mainCam.farClipPlane = renderDistINI;
-                mainCam.fieldOfView = fovINI;
+               // mainCam.fieldOfView = fovINI;
                 mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
                 audioPanel.SetActive(false);
@@ -839,7 +840,7 @@ namespace GreatArcStudios
             renderDistINI = mainCam.farClipPlane;
             shadowDistINI = QualitySettings.shadowDistance;
             Debug.Log("Shadow dist ini" + shadowDistINI);
-            fovINI = mainCam.fieldOfView;
+            //fovINI = mainCam.fieldOfView;
             aoBool = aoToggle.isOn;
             dofBool = dofToggle.isOn;
             lastAOBool = aoBool;
@@ -996,7 +997,7 @@ namespace GreatArcStudios
         /// <param name="fov"></param>
         public void updateFOV(float fov)
         {
-            mainCam.fieldOfView = fov;
+            //mainCam.fieldOfView = fov;
         }
         /// <summary>
         /// Toggle on or off Depth of Field. This is meant to be used with a checkbox.
