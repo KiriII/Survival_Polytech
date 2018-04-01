@@ -341,7 +341,7 @@ namespace GreatArcStudios
             }
             catch
             {
-                if (terrain = null)
+                if (terrain == null)
                 {
                     Debug.Log("Terrain Not Assigned");
                 }
@@ -436,20 +436,20 @@ namespace GreatArcStudios
             readUseSimpleTerrain = useSimpleTerrain;
             useSimpleTerrain = readUseSimpleTerrain;
             //colorCrossfade();
-            if (vidPanel.active == true)
+            if (vidPanel.activeSelf == true)
             {
                 pauseMenu.text = "Video Menu";
             }
-            else if (audioPanel.active == true)
+            else if (audioPanel.activeSelf == true)
             {
                 pauseMenu.text = "Audio Menu";
             }
-            else if (mainPanel.active == true)
+            else if (mainPanel.activeSelf == true)
             {
                 pauseMenu.text = "Pause Menu";
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == false)
+            if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == false)
             {
 
                 uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
@@ -468,7 +468,7 @@ namespace GreatArcStudios
                      blurEffect.enabled = true;
                  }  */
             }
-            else if(Input.GetKeyDown(KeyCode.Escape) && mainPanel.active == true) {
+            else if(Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == true) {
                 Time.timeScale = timeScale;
                 mainPanel.SetActive(false);
                 vidPanel.SetActive(false);
