@@ -15,7 +15,7 @@ namespace GreatArcStudios
     /// The pause menu manager. You can extend this to make your own. Everything is pretty modular, so creating you own based off of this should be easy. Thanks for downloading and good luck! 
     /// </summary>
     public class PauseManager : MonoBehaviour
-    {
+    {              
         /// <summary>
         /// This is the main panel holder, which holds the main panel and should be called "main panel"
         /// </summary> 
@@ -252,6 +252,8 @@ namespace GreatArcStudios
         public static Terrain readTerrain;
         public static Terrain readSimpleTerrain;
 
+        private bool isOpened = false;          // to open
+        
         private SaveSettings saveSettings = new SaveSettings();
         /*
         //Color fade duration value
@@ -290,7 +292,9 @@ namespace GreatArcStudios
             {
                 readTerrain = terrain;
             }
-           
+
+            isOpened = false;
+
             mainCamShared = mainCam;
             //Set the lastmusicmult and last audiomult
             lastMusicMult = audioMusicSlider.value;
@@ -317,7 +321,7 @@ namespace GreatArcStudios
             aaQualINI = QualitySettings.antiAliasing;
             renderDistINI = mainCam.farClipPlane;
             shadowDistINI = QualitySettings.shadowDistance;
-           // fovINI = mainCam.fieldOfView;
+            //fovINI = mainCam.fieldOfView;
             msaaINI = QualitySettings.antiAliasing;
             vsyncINI = QualitySettings.vSyncCount;
             //enable titles
@@ -369,6 +373,7 @@ namespace GreatArcStudios
         /// </summary>
         public void Resume()
         {
+            isOpened = false;
             Time.timeScale = timeScale;
 
             mainPanel.SetActive(false);
@@ -426,6 +431,16 @@ namespace GreatArcStudios
             SceneManager.LoadScene("MainMenu");
             uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
         }
+        
+        public bool getIsOpened()
+        {
+            return isOpened;
+        }
+
+        public void setIsOpened(bool newValue)
+        {
+            isOpened = newValue;
+        }
 
         // Update is called once per frame
         /// <summary>
@@ -449,9 +464,9 @@ namespace GreatArcStudios
                 pauseMenu.text = "Pause Menu";
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == false)
+            if ((Input.GetKeyDown(KeyCode.Escape) || isOpened ) && mainPanel.activeSelf == false)
             {
-
+                isOpened = false;
                 uiEventSystem.SetSelectedGameObject(defualtSelectedMain);
                 mainPanel.SetActive(true);
                 vidPanel.SetActive(false);
@@ -469,6 +484,7 @@ namespace GreatArcStudios
                  }  */
             }
             else if(Input.GetKeyDown(KeyCode.Escape) && mainPanel.activeSelf == true) {
+                isOpened = false;
                 Time.timeScale = timeScale;
                 mainPanel.SetActive(false);
                 vidPanel.SetActive(false);
@@ -503,7 +519,7 @@ namespace GreatArcStudios
         /// Show the audio panel 
         /// </summary>
         public void Audio()
-        {
+        {        
             mainPanel.SetActive(false);
             vidPanel.SetActive(false);
             audioPanel.SetActive(true);

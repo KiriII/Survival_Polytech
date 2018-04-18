@@ -2,7 +2,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TupoiNPC : MonoBehaviour {
+public class TupoiNPC : MonoBehaviour
+{
 
     [Tooltip("How long NPC will stay in the new destination")]
     public float waitingTime = 1f;
@@ -13,19 +14,21 @@ public class TupoiNPC : MonoBehaviour {
     private bool newWay;
     private bool playerFollowing;
 
-    
-    void Start () {
+
+    void Start()
+    {
         nav = GetComponent<NavMeshAgent>();
         SetRandomDestination();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         newWay = false;
         playerFollowing = false;
     }
-		
-	void Update () {
-        if (!newWay && !playerFollowing && ( nav.remainingDistance <= nav.stoppingDistance || nav.isStopped))
+
+    void Update()
+    {
+        if (!newWay && !playerFollowing && (nav.remainingDistance <= nav.stoppingDistance || nav.isStopped))
         {
-            StartCoroutine(newDestination(waitingTime));
+            StartCoroutine(newRandomDestination(waitingTime));
             newWay = true;
         }
         else
@@ -36,8 +39,8 @@ public class TupoiNPC : MonoBehaviour {
 
     }
 
-    private IEnumerator newDestination(float value)
-    {        
+    private IEnumerator newRandomDestination(float value)
+    {
         yield return new WaitForSeconds(value);
         SetRandomDestination();
         newWay = false;
@@ -46,6 +49,16 @@ public class TupoiNPC : MonoBehaviour {
     private void SetRandomDestination()
     {
         nav.SetDestination(destinations[Random.Range(0, destinations.Length)].position);
+    }
+
+    private void SetDestination(int arrayIndex)
+    {
+        nav.SetDestination(destinations[arrayIndex].position);
+    }
+
+    private void SetCustomDestination(Transform newTarget)
+    {
+        nav.SetDestination(newTarget.position);
     }
 
     private void SetPlayerFollowing(bool isFollowing)
