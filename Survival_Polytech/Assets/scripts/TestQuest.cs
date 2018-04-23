@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestQuest : interaction {
+public class TestQuest : Interaction {
 
-	public override void Interact()
+    private int expAmount;
+
+    private void Awake()
     {
-        if (Inventory.instance.items.Count >= 10)
+        FloatingTextController.Initialize();
+        expAmount = 2500;
+    }
+
+    public override void Interact()
+    {
+        if (Inventory.instance.items.Count >= 2)
         {
            if (gameObject !=null) Destroy(gameObject);
+            FloatingTextController.CreateFloatingText("EXP +" + expAmount.ToString(), transform);
             CharacterStats.instance.EarnEXP(2500);
         }
     }

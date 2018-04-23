@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class interaction : MonoBehaviour {
+public class Interaction : MonoBehaviour {
 
     public Transform interactTransform; // для того чтобы описать случай, когда место взаимодействия и объект в разных местах, можно оставить сам объект
     public GameObject detect;

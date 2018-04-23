@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-public class move : MonoBehaviour {
+public class Move : MonoBehaviour {
 
-    public interaction focus;
+    public Interaction focus;
 
     Transform target; // for not static focuses
     NavMeshAgent mesh; 
@@ -30,7 +30,7 @@ public class move : MonoBehaviour {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000) && Input.GetMouseButtonDown(0)) 
         {
-            interaction inter = hit.collider.GetComponent<interaction>();
+            Interaction inter = hit.collider.GetComponent<Interaction>();
             if (inter != null)
             {
                 mesh.SetDestination(transform.position);
@@ -49,7 +49,7 @@ public class move : MonoBehaviour {
         mesh.SetDestination(point);
     }
 
-    void SetFocus(interaction newFocus)
+    void SetFocus(Interaction newFocus)
     {
         if (newFocus != focus)
         {
@@ -71,7 +71,7 @@ public class move : MonoBehaviour {
         StopFollowing();
     }
 
-    void FollowTarget(interaction newTarget)
+    void FollowTarget(Interaction newTarget)
     {
         mesh.stoppingDistance = newTarget.radius* 0.8f;
         target = newTarget.interactTransform;

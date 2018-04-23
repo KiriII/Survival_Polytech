@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PickUp : interaction {
+public class PickUp : Interaction {
 
     public Image takeble;
     public Item item;

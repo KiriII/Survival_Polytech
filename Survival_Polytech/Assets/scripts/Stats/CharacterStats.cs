@@ -24,6 +24,9 @@ public class CharacterStats : MonoBehaviour
     private bool sleeping = false;
     private bool starvation = false;
 
+	private float maxValue;
+
+
     public bool showStats;
 
     [Range(0, 100)]
@@ -65,6 +68,7 @@ public class CharacterStats : MonoBehaviour
         alive = true;
         showStats = false;
         currentHealth = maxHealth;
+		maxValue = 100;
     }
 
     private void FixedUpdate()
@@ -96,10 +100,10 @@ public class CharacterStats : MonoBehaviour
         }
     }
 
-    public void lvlUp()
+	public void lvlUp()
     {
         lvl++;
-        EXP = 0;
+		EXP -= ExpToLvlUp;
         this.ExpToLvlUp += Mathf.Floor(ExpToLvlUp / 2.5f); //
         lvlUpPoints += 5;
     }
@@ -126,9 +130,9 @@ public class CharacterStats : MonoBehaviour
     public void FallingAsleep(float amount)
     {
         sleepiness += amount;
-        if (sleepiness >= 100)
+		if (sleepiness >= maxValue)
         {
-            sleepiness = 100;
+			sleepiness = maxValue;
             if (!sleeping)
                 FallAsleep();
         }
@@ -145,15 +149,19 @@ public class CharacterStats : MonoBehaviour
 
     public void Starvation(float amount)
     {
-        hunger += amount;
-        if (hunger >= 100)
+        hunger -= amount;
+		if (hunger <= 0)
         {
-            hunger = 100;
+			hunger = 0;
             if (!starvation)
                 HungerDyingState();
-        }
-        else
-            if (starvation) starvation = false;
+		}
+		else
+			if (starvation) starvation = false;
+
+		if (hunger >= maxValue) {
+			hunger = maxValue;
+		} 
            
     }
 
@@ -183,17 +191,18 @@ public class CharacterStats : MonoBehaviour
         if (showStats) //если статы отображаются 
         {
             //Рисуем наши статы 
-            GUI.Box(new Rect(10, 70, 300, 300), "stats");
-            GUI.Label(new Rect(10, 95, 300, 300), "LvL: " + lvl);
-            GUI.Label(new Rect(10, 115, 300, 300), "EXP: " + Mathf.FloorToInt(EXP));
-            GUI.Label(new Rect(10, 135, 300, 300), "HP: " + Mathf.FloorToInt(currentHealth));
-            GUI.Label(new Rect(10, 155, 300, 300), "Money: " + money);
-            GUI.Label(new Rect(10, 175, 300, 300), "Hunger: " + Mathf.FloorToInt(hunger));
-            GUI.Label(new Rect(10, 195, 300, 300), "Sleepiness: " + Mathf.FloorToInt(sleepiness));
-            GUI.Label(new Rect(10, 215, 300, 300), "Sanity: " + Mathf.FloorToInt(sanity));
-            GUI.Label(new Rect(10, 235, 300, 300), "Intelligence: " + intelligence);
-            GUI.Label(new Rect(10, 255, 300, 300), "Agility: " + agility);
-            GUI.Label(new Rect(10, 275, 300, 300), "Authority: " + authority);
+			GUI.Label(new Rect(1000, 30, 500, 150), "stats:");
+            GUI.Label(new Rect(1200, 40, 300, 300), "LvL: " + lvl);
+            GUI.Label(new Rect(1200, 25, 300, 300), "EXP: " + Mathf.FloorToInt(EXP));
+            GUI.Label(new Rect(1200, 10, 300, 300), "HP: " + Mathf.FloorToInt(currentHealth));
+            GUI.Label(new Rect(1350, 10, 300, 300), "Money: " + money);
+            GUI.Label(new Rect(1200, 55, 300, 300), "Hunger: " + Mathf.FloorToInt(hunger));
+            GUI.Label(new Rect(1200, 70, 300, 300), "Sleepiness: " + Mathf.FloorToInt(sleepiness));
+            GUI.Label(new Rect(1350, 25, 300, 300), "Sanity: " + Mathf.FloorToInt(sanity));
+            GUI.Label(new Rect(1350, 40, 300, 300), "Intelligence: " + intelligence);
+            GUI.Label(new Rect(1350, 55, 300, 300), "Agility: " + agility);
+            GUI.Label(new Rect(1350, 70, 300, 300), "Authority: " + authority);
+
 
             if (lvlUpPoints > 0) //если очков статов больше 0 делаем кнопки для повышения статов 
             {
@@ -262,4 +271,10 @@ public class CharacterStats : MonoBehaviour
     {
         starvation = newHunger;
     }
+
+    public float getMaxValue()
+    {
+        return maxValue;
+    }
+
 }
