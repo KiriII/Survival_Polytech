@@ -13,6 +13,7 @@ public class TupoiNPC : MonoBehaviour
     Transform player;
     private bool newWay;
     private bool playerFollowing;
+    private bool isStoped;
 
 
     void Start()
@@ -22,21 +23,24 @@ public class TupoiNPC : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         newWay = false;
         playerFollowing = false;
+        isStoped = false;
     }
 
     void Update()
     {
-        if (!newWay && !playerFollowing && (nav.remainingDistance <= nav.stoppingDistance || nav.isStopped))
+        if (!isStoped)
         {
-            StartCoroutine(newRandomDestination(waitingTime));
-            newWay = true;
+            if (!newWay && !playerFollowing && (nav.remainingDistance <= nav.stoppingDistance || nav.isStopped))
+            {
+                StartCoroutine(newRandomDestination(waitingTime));
+                newWay = true;
+            }
+            else
+            {
+                if (playerFollowing)
+                    nav.SetDestination(player.position);
+            }
         }
-        else
-        {
-            if (playerFollowing)
-                nav.SetDestination(player.position);
-        }
-
     }
 
     private IEnumerator newRandomDestination(float value)
@@ -46,23 +50,36 @@ public class TupoiNPC : MonoBehaviour
         newWay = false;
     }
 
-    private void SetRandomDestination()
+    public void SetRandomDestination()
     {
         nav.SetDestination(destinations[Random.Range(0, destinations.Length)].position);
     }
 
-    private void SetDestination(int arrayIndex)
+    public void SetDestination(int arrayIndex)
     {
         nav.SetDestination(destinations[arrayIndex].position);
     }
 
-    private void SetCustomDestination(Transform newTarget)
+    public void SetCustomDestination(Transform newTarget)
     {
         nav.SetDestination(newTarget.position);
     }
 
-    private void SetPlayerFollowing(bool isFollowing)
+    public void SetPlayerFollowing(bool isFollowing)
     {
         playerFollowing = isFollowing;
+    }
+
+    public void StopWalking()
+    {
+        nav.speed = 0;
+        isStoped = true;
+    }
+
+    public void ContinueWandering()
+    {
+        isStoped = false;
+        nav.speed = 2.5f;
+        SetRandomDestination();
     }
 }

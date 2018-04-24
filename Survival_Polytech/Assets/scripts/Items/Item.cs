@@ -9,14 +9,19 @@ public class Item : ScriptableObject {
     public Sprite icon = null;
     public bool isDefaultItem = false;
 
-    public virtual void Use()
-    {       
-        Debug.Log("USING " + name);        
-    }
-
+  
     public void removeFromInventory()
     {
         Inventory.instance.Remove(this);
     }
 
+    public virtual void Use()
+    {
+        Debug.Log("USING " + name);
+    }
+
+    public virtual void PerformAction()
+    {
+        Debug.Log("Doing some cool staf with " + name);
+    }
 }

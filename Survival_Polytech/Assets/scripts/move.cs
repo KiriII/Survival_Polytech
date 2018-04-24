@@ -46,6 +46,7 @@ public class Move : MonoBehaviour {
 
     public void MoveToPoint(Vector3 point)
     {
+        mesh.stoppingDistance = 0f;     // for safety
         mesh.SetDestination(point);
     }
 

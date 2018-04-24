@@ -6,16 +6,16 @@ public class NoteManager : MonoBehaviour
 
     #region Singleton
 
-    public static NoteManager instance;
+    public static NoteManager Instance;
 
     void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("Slomalis' zapiski chini daun");
             return;
         }
-        instance = this;
+        Instance = this;
     }
 
     #endregion

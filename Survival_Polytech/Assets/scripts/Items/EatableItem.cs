@@ -12,9 +12,10 @@ public class EatableItem : Item {
     {
         Debug.Log("Eat " + name);
         removeFromInventory();
-        CharacterStats.instance.Starvation(-eat);
-        CharacterStats.instance.EarnEXP(earnedEXP);
+        FloatingTextController.CreateFloatingText("+" + earnedEXP, GameObject.FindGameObjectWithTag("Player").transform);
+        CharacterStats.Instance.Starvation(-eat);
+        CharacterStats.Instance.EarnEXP(earnedEXP);
 
-        NoteManager.instance.OpenNewNote("Food \n\n\n Press 'T' to win");        
+       // NoteManager.Instance.OpenNewNote("Food \n\n\n Press 'T' to win");        
     }
 }

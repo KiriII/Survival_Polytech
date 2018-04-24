@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Interaction : MonoBehaviour {
 
-    public Transform interactTransform; // для того чтобы описать случай, когда место взаимодействия и объект в разных местах, можно оставить сам объект
+    public Transform interactTransform ; // для того чтобы описать случай, когда место взаимодействия и объект в разных местах, можно оставить сам объект
     public GameObject detect;
     public Text text;
     public Image description;
@@ -17,6 +17,11 @@ public class Interaction : MonoBehaviour {
     bool isInteracted = false;
 
     public virtual void Interact()
+    {
+
+    }
+
+    public virtual void AfterInteract()
     {
 
     }
@@ -47,18 +52,24 @@ public class Interaction : MonoBehaviour {
     
     void OnMouseEnter()
     {
-        detect.GetComponent<MeshRenderer>().enabled = true;
-        description.enabled = true;
-        SetText();
-        ForImageSet();
+        if (detect != null)
+        {
+            detect.GetComponent<MeshRenderer>().enabled = true;
+            description.enabled = true;
+            SetText();
+            ForImageSet();
+        }
     }
 
     private void OnMouseExit()
     {
-        detect.GetComponent<MeshRenderer>().enabled = false;
-        description.enabled = false;
-        RemoveText();
-        ForImageRemove();
+        if (detect != null)
+        {
+            detect.GetComponent<MeshRenderer>().enabled = false;
+            description.enabled = false;
+            RemoveText();
+            ForImageRemove();
+        }
     }
 
     public virtual void SetText()

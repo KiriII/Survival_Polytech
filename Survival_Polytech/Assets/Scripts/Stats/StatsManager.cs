@@ -16,51 +16,47 @@ public class StatsManager : MonoBehaviour {
 	private float exp;
 	private float hunger;
 	private float maxValue;
-
-	GameObject hero;
-	CharacterStats characterStats;
+    
 
 	// Use this for initialization
 	void Start () {
-		hero = GameObject.FindGameObjectWithTag("Player");
-		characterStats = hero.GetComponent<CharacterStats>();
 
-        maxValue = characterStats.getMaxValue();
-		maximumHp = characterStats.maxHealth;
-		currentHp = characterStats.currentHealth;
-		sanity = characterStats.sanity;
-		exp = characterStats.EXP;
+        maxValue = CharacterStats.Instance.maxValue;
+		maximumHp = CharacterStats.Instance.maxHealth;
+		currentHp = CharacterStats.Instance.currentHealth;
+		sanity = CharacterStats.Instance.sanity;
+		exp = CharacterStats.Instance.EXP;
 
 		setup();
 	}
 
 	// Update is called once per frame
 	void Update () {
-		if (currentHp != characterStats.currentHealth) {
-			currentHp = characterStats.currentHealth;
+		if (currentHp != CharacterStats.Instance.currentHealth) {
+			currentHp = CharacterStats.Instance.currentHealth;
 			healthI.transform.localScale = new Vector2((currentHp / maximumHp),(float) healthI.transform.localScale.y);
 		}
 
-		if (hunger != characterStats.hunger) {
-			hunger = characterStats.hunger;
+		if (hunger != CharacterStats.Instance.hunger) {
+			hunger = CharacterStats.Instance.hunger;
 			hungerI.transform.localScale = new Vector2((hunger / maxValue),(float) hungerI.transform.localScale.y);
 		}
 
-		if (sanity != characterStats.sanity) {
+		if (sanity != CharacterStats.Instance.sanity) {
 			
 			sanityI.transform.localScale = new Vector2((sanity / maxValue),(float) sanityI.transform.localScale.y);
 		}
 
-		if (exp != characterStats.EXP) {
-			exp = characterStats.EXP;
-			expI.transform.localScale = new Vector2((exp / characterStats.ExpToLvlUp),(float) expI.transform.localScale.y);
+		if (exp != CharacterStats.Instance.EXP) {
+			exp = CharacterStats.Instance.EXP;
+			expI.transform.localScale = new Vector2((exp / CharacterStats.Instance.ExpToLvlUp),(float) expI.transform.localScale.y);
 		}
 	}
 
 	void setup() {
-		healthI.transform.localScale = new Vector2((currentHp / maximumHp),(float) healthI.transform.localScale.y);
-		hungerI.transform.localScale = new Vector2((hunger / maxValue),(float) hungerI.transform.localScale.y);
+        healthI.transform.localScale = new Vector2((currentHp / maximumHp), (float)healthI.transform.localScale.y);
+        hungerI.transform.localScale = new Vector2((hunger / maxValue), (float)hungerI.transform.localScale.y);
 		sanityI.transform.localScale = new Vector2((sanity / maxValue),(float) sanityI.transform.localScale.y);
-		expI.transform.localScale = new Vector2((exp / characterStats.ExpToLvlUp),(float) expI.transform.localScale.y);
+		expI.transform.localScale = new Vector2((exp / CharacterStats.Instance.ExpToLvlUp),(float) expI.transform.localScale.y);
 	}
 }

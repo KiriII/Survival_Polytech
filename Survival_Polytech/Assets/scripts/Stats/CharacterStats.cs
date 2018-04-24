@@ -5,16 +5,16 @@ public class CharacterStats : MonoBehaviour
 
     #region Singleton
 
-    public static CharacterStats instance;
+    public static CharacterStats Instance;
 
     void Awake()
     {
-        if (instance != null)
+        if (Instance != null)
         {
             Debug.LogWarning("Slomalis' stati chini daun");
             return;
         }
-        instance = this;
+        Instance = this;
     }
 
     #endregion
@@ -24,20 +24,19 @@ public class CharacterStats : MonoBehaviour
     private bool sleeping = false;
     private bool starvation = false;
 
-	private float maxValue;
-
-
     public bool showStats;
 
-    [Range(0, 100)]
+    [Range(0, 200)]
     public int maxHealth = 100;
     public float currentHealth { get; private set; }
     public int lvl;
     private int lvlUpPoints;
     public float ExpToLvlUp;
     public float EXP;
-    public float money;    
+    public float money;
 
+    [Range(1, 300)]
+    public float maxValue = 100f;
     public float hunger;
     public float constOfHunger;
     public float hungerDyingConst;
@@ -48,27 +47,14 @@ public class CharacterStats : MonoBehaviour
     public int intelligence;
     public int agility;
     public int authority;
-
-    public CharacterStats(float currentHealth, int lvl, float EXP, float money, float hunger, float sleepiness, int sanity, int intelligence, int agility, int authority)
-    {
-        this.currentHealth = currentHealth;
-        this.lvl = lvl;
-        this.EXP = EXP;
-        this.money = money;
-        this.hunger = hunger;
-        this.sleepiness = sleepiness;
-        this.sanity = sanity;
-        this.intelligence = intelligence;
-        this.agility = agility;
-        this.authority = authority;
-    }
+      
   
     private void Start()
     {
         alive = true;
         showStats = false;
         currentHealth = maxHealth;
-		maxValue = 100;
+		//maxValue = 100;
     }
 
     private void FixedUpdate()
@@ -271,10 +257,4 @@ public class CharacterStats : MonoBehaviour
     {
         starvation = newHunger;
     }
-
-    public float getMaxValue()
-    {
-        return maxValue;
-    }
-
 }

@@ -27,6 +27,12 @@ public class FloatingTextController : MonoBehaviour {
 
         instance.transform.SetParent(canvas.transform, false);
         instance.transform.position = screenPosition;
+        instance.transform.rotation = canvas.transform.rotation;
         instance.SetText(text);
+    }
+
+    private static void SetTextScale()
+    {
+        ///////////
     }
 }

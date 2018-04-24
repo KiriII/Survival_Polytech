@@ -9,16 +9,19 @@ public class TestQuest : Interaction {
     private void Awake()
     {
         FloatingTextController.Initialize();
-        expAmount = 2500;
+        expAmount =2500;
     }
 
     public override void Interact()
     {
         if (Inventory.instance.items.Count >= 2)
         {
-           if (gameObject !=null) Destroy(gameObject);
-            FloatingTextController.CreateFloatingText("EXP +" + expAmount.ToString(), transform);
-            CharacterStats.instance.EarnEXP(2500);
+            if (gameObject != null)
+            {                
+                FloatingTextController.CreateFloatingText("EXP +" + expAmount.ToString(), transform);
+                CharacterStats.Instance.EarnEXP(2500);
+                Destroy(gameObject);
+            }
         }
     }
 }
