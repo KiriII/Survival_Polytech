@@ -6,15 +6,30 @@ using UnityEngine.UI;
 public class Interaction : MonoBehaviour {
 
     public Transform interactTransform ; // для того чтобы описать случай, когда место взаимодействия и объект в разных местах, можно оставить сам объект
-    public GameObject detect;
-    public Text text;
+    public GameObject detect;    
     public Image description;
+    public Text text;
     public string descriptionText = "Не забудь добавить описание";
 
     public float radius = 3f;
     bool isFocused = false;
     Transform player = null;
     bool isInteracted = false;
+
+    private GameObject defaultDescription;
+
+    private void Awake()
+    {
+        if (description == null || text == null)
+        {
+            defaultDescription = GameObject.FindGameObjectWithTag("Description");
+            if (description == null)
+                description = defaultDescription.GetComponent<Image>();
+
+            if (text == null)
+                text = defaultDescription.transform.GetChild(0).GetComponent<Text>();
+        }
+    }
 
     public virtual void Interact()
     {
@@ -98,5 +113,8 @@ public class Interaction : MonoBehaviour {
       
     }
 
-    
+    public GameObject GetDefaultDescription()
+    {
+        return defaultDescription;
+    }
 }

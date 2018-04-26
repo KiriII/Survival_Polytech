@@ -72,14 +72,14 @@ public class TupoiNPC : MonoBehaviour
 
     public void StopWalking()
     {
-        nav.speed = 0;
+        nav.isStopped = true;
         isStoped = true;
     }
 
     public void ContinueWandering()
     {
         isStoped = false;
-        nav.speed = 2.5f;
+        nav.isStopped = false;
         SetRandomDestination();
     }
 }

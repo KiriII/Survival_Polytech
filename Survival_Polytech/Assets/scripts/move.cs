@@ -78,7 +78,7 @@ public class Move : MonoBehaviour {
         target = newTarget.interactTransform;
     } 
 
-    void StopFollowing()
+    public void StopFollowing()
     {
         mesh.stoppingDistance = 0f;
         target = null;

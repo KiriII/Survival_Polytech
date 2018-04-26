@@ -6,10 +6,10 @@ public class TestQuest : Interaction {
 
     private int expAmount;
 
-    private void Awake()
-    {
+    void Start()
+    {        
         FloatingTextController.Initialize();
-        expAmount =2500;
+        expAmount = 2500;
     }
 
     public override void Interact()

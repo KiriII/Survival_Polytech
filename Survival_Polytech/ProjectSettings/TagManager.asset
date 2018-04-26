@@ -6,6 +6,7 @@ TagManager:
   tags:
   - terrain
   - Inventory manager
+  - Description
   layers:
   - Default
   - TransparentFX

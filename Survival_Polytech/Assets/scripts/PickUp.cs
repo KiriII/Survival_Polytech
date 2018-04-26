@@ -8,7 +8,13 @@ public class PickUp : Interaction {
     public Image takeble;
     public Item item;
 
-	public override void Interact()
+    private void Start()
+    {
+        if (takeble == null && base.GetDefaultDescription() != null)
+            takeble = base.GetDefaultDescription().transform.GetChild(1).GetComponent<Image>();
+    }
+
+    public override void Interact()
     {
         base.Interact(); // берет всё из оригинала
        
