@@ -10,7 +10,7 @@ public class DialogueSystem : MonoBehaviour {
     public GameObject dialoguePanel;
 
     [HideInInspector]
-    public string npcName;
+    public string npcName = "???";
     [HideInInspector]
     public List<string> dialogueLines = new List<string>();
 

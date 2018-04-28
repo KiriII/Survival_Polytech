@@ -37,11 +37,14 @@ public class CharacterStats : MonoBehaviour
 
     [Range(1, 300)]
     public float maxValue = 100f;
+    [Range(0, 300)]
     public float hunger;
     public float constOfHunger;
     public float hungerDyingConst;
+    [Range(0, 300)]
     public float sleepiness;
     public float constOfSleepiness;
+    [Range(0, 300)]
     public int sanity;
 
     public int intelligence;

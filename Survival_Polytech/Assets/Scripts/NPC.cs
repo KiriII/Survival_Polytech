@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class NPC : Interaction {
 
-    public string NpcName;
+    public string NpcName = "???";
     public string[] dialogue;
 
     private TupoiNPC tupoiNPC;
@@ -13,6 +13,8 @@ public class NPC : Interaction {
     private GameObject hero;
     private NavMeshAgent playerNavMesh;
     private Move playerMovement;
+
+    private bool isInteracting = false;
 
     private void Start()
     {        
@@ -23,11 +25,19 @@ public class NPC : Interaction {
         descriptionText = NpcName;
     }
 
+    private void LateUpdate()
+    {
+        if (isInteracting)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(hero.transform.position), 0.5f * Time.deltaTime); //
+    }
+
     public override void Interact()
     {
         DialogueSystem.Instance.AddNewDialogue(NpcName, dialogue, this);
         tupoiNPC.StopWalking();
         // rotation...
+        isInteracting = true;
+        //
         playerNavMesh.isStopped = true;
         Debug.Log("Interacting with " + NpcName);
     }
@@ -38,6 +48,7 @@ public class NPC : Interaction {
         playerMovement.StopFollowing();
         playerNavMesh.ResetPath();
         playerNavMesh.isStopped = false;
+        isInteracting = false;
     }
 
     void OnMouseEnter()

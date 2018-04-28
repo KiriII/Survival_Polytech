@@ -4306,15 +4306,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4804488899231516, guid: b917cea78e493a646bfc87bfe190fdd3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 99.12
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 4804488899231516, guid: b917cea78e493a646bfc87bfe190fdd3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.72
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4804488899231516, guid: b917cea78e493a646bfc87bfe190fdd3, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 159.12
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 4804488899231516, guid: b917cea78e493a646bfc87bfe190fdd3, type: 2}
       propertyPath: m_LocalRotation.x
@@ -7821,7 +7821,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
-    m_Resolution: 2
+    m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0
