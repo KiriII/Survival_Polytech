@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TestQuest : Interaction {
-
+    
     private int expAmount;
 
     void Start()
-    {        
+    {
         FloatingTextController.Initialize();
         expAmount = 2500;
     }

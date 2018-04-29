@@ -106,7 +106,7 @@ public class CharacterStats : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth < 0)
             currentHealth = 0;
-        Debug.Log(transform.name + " takes " + damage + " damage.");        
+        //Debug.Log(transform.name + " takes " + damage + " damage.");        
     }
 
     public virtual void Die()

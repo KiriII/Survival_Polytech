@@ -8,12 +8,16 @@ public class NPC : Interaction {
     public string NpcName = "???";
     public string[] dialogue;
 
+
+    public string[] allAnswers;
+    public int[] indexOfAnswers;
+
     private TupoiNPC tupoiNPC;
 
     private GameObject hero;
     private NavMeshAgent playerNavMesh;
     private Move playerMovement;
-
+    private string[][] answers;
     private bool isInteracting = false;
 
     private void Start()
@@ -23,17 +27,26 @@ public class NPC : Interaction {
         playerNavMesh = hero.GetComponent<NavMeshAgent>();
         playerMovement = hero.GetComponent<Move>();
         descriptionText = NpcName;
+
+        answers = new string[allAnswers.Length / 2][];
+        for (int i = 0; i < allAnswers.Length / 2; i++)
+        {
+            answers[i] = new string[2];
+            answers[i][0] = allAnswers[2 * i];
+            answers[i][1] = allAnswers[2 * i + 1];
+        }
     }
 
     private void LateUpdate()
     {
         if (isInteracting)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(hero.transform.position), 0.5f * Time.deltaTime); //
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(hero.transform.position), 0.5f * Time.deltaTime); // rotation...
     }
 
     public override void Interact()
     {
-        DialogueSystem.Instance.AddNewDialogue(NpcName, dialogue, this);
+        //DialogueSystem.Instance.AddNewMonologue(NpcName, dialogue, this);
+        DialogueSystem.Instance.AddNewDialogue(NpcName, dialogue, this, answers, indexOfAnswers);
         tupoiNPC.StopWalking();
         // rotation...
         isInteracting = true;
