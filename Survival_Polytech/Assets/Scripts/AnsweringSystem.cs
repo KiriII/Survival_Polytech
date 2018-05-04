@@ -15,7 +15,6 @@ public class AnsweringSystem : MonoBehaviour {
     Button choiceButton1;
     Button choiceButton2;
     Text answerText1, answerText2;
-    int answerIndex;
 
     Interaction talker;
 
@@ -61,8 +60,8 @@ public class AnsweringSystem : MonoBehaviour {
 
     public void ContinueDialogue(int answerIndex)
     {
-        DialogueSystem.Instance.EndAnswer(answerIndex);
         answerPanel.SetActive(false);
         Debug.Log("End of answer");
+		DialogueSystem.Instance.EndAnswer(answerIndex);
     }
 }

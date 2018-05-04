@@ -36,10 +36,7 @@ public class NoteManager : MonoBehaviour
         
     void Update()
     {        
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            note.SetActive(!note.activeSelf);
-        }
+     
     }
 
     public void OpenNewNote(string newText)

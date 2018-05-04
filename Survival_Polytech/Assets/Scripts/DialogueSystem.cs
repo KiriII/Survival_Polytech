@@ -48,7 +48,7 @@ public class DialogueSystem : MonoBehaviour {
 	
 	public void AddNewMonologue(string npcName, string[] lines)
     {
-        dialogueIndex = 0;
+        this.dialogueIndex = 0;
         this.npcName = npcName;
         dialogueLines = new List<string>(lines.Length);
         dialogueLines.AddRange(lines);
@@ -58,7 +58,7 @@ public class DialogueSystem : MonoBehaviour {
 
     public void AddNewMonologue(string npcName, string[] lines, Interaction talker)
     {
-        dialogueIndex = 0;
+        this.dialogueIndex = 0;
         this.talker = talker;
         this.npcName = npcName;
         dialogueLines = new List<string>(lines.Length);
@@ -69,7 +69,8 @@ public class DialogueSystem : MonoBehaviour {
 
     public void AddNewDialogue(string npcName, string[] lines, string[][] answers, int[] indexOfAnswer)
     {
-        dialogueIndex = 0;
+        this.dialogueIndex = 0;
+		this.indexOfAnswer = 0;
         this.npcName = npcName;
         dialogueLines = new List<string>(lines.Length);
         dialogueLines.AddRange(lines);
@@ -84,7 +85,8 @@ public class DialogueSystem : MonoBehaviour {
 
     public void AddNewDialogue(string npcName, string[] lines, Interaction talker, string[][] answers, int[] indexOfAnswers)
     {
-        dialogueIndex = 0;
+        this.dialogueIndex = 0;
+		this.indexOfAnswer = 0;
         this.talker = talker;
         this.npcName = npcName;
         dialogueLines = new List<string>(lines.Length);
