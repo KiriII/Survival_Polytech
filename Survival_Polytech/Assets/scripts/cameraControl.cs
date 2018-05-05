@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour {
-
-
+    
 	public float speed;
 	public float high;
 	public float zoomSpeed;
 	public int minZoom;
 	public int maxZoom;
-	RaycastHit hit;
-
-	public Transform target;
+    public Transform target;
 	public float smoothing = 5f;
 
-	Vector3 offset;
+    RaycastHit hit;
+    Vector3 offset;
 	float speedMult;
 
 	void Start()
@@ -27,10 +25,10 @@ public class CameraControl : MonoBehaviour {
 
 	void Update() {
 
-		highPosition();
+		HighPosition();
 
 		if (Input.GetKey(KeyCode.LeftAlt)){
-			weightPosition();
+			WeightPosition();
 		}
 		else
 		{
@@ -40,7 +38,7 @@ public class CameraControl : MonoBehaviour {
 		}
 	}
 
-	void highPosition()
+	void HighPosition()
 	{
 		Vector3 directionRay = transform.TransformDirection(Vector3.forward);
 		if (Physics.Raycast(transform.position, directionRay, out hit, 50))
@@ -69,7 +67,7 @@ public class CameraControl : MonoBehaviour {
 		}
 	}
 
-	void weightPosition()
+	void WeightPosition()
 	{
 		if (Input.mousePosition.x < 20)
 		{

@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114992819250401514}
   - component: {fileID: 54830235412130330}
   - component: {fileID: 114249609114664164}
+  - component: {fileID: 114742603876308090}
   m_Layer: 0
   m_Name: hero
   m_TagString: Player
@@ -141,6 +142,18 @@ MonoBehaviour:
   intelligence: 50
   agility: 50
   authority: 50
+--- !u!114 &114742603876308090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1126188722964638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a1eae07138cb24f9b41e3f8eec3fed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  focus: {fileID: 0}
 --- !u!114 &114992819250401514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,7 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462ea63d02fc79548bc05172308625c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focus: {fileID: 0}
 --- !u!195 &195257579577069842
 NavMeshAgent:
   m_ObjectHideFlags: 1
