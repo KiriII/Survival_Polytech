@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraControl : MonoBehaviour {
-    
+
 	public float speed;
 	public float high;
 	public float zoomSpeed;
 	public int minZoom;
 	public int maxZoom;
-    public Transform target;
+	public Transform target;
 	public float smoothing = 5f;
 
-    RaycastHit hit;
-    Vector3 offset;
+	RaycastHit hit;
+	Vector3 offset;
 	float speedMult;
 
 	void Start()
@@ -68,22 +68,34 @@ public class CameraControl : MonoBehaviour {
 	}
 
 	void WeightPosition()
-	{
+	{	
 		if (Input.mousePosition.x < 20)
 		{
-			transform.position -= new Vector3(speed, 0, 0); 
+			transform.position -= new Vector3(speed, 0, 0);
+			if (transform.position.x < target.position.x - 10.0) {
+				transform.position += new Vector3(speed,0,0);
+			}
 		}
 		if (Input.mousePosition.x > Screen.width - 20)
 		{
 			transform.position += new Vector3(speed, 0, 0);
+			if (transform.position.x > target.position.x + 10.0) {
+				transform.position -= new Vector3(speed,0,0);
+			}
 		}
 		if (Input.mousePosition.y < 20)
 		{
 			transform.position -= new Vector3(0, 0, speed);
+			if (transform.position.z < target.position.z - 10.0) {
+				transform.position += new Vector3(0,0,speed);
+			}
 		}
 		if (Input.mousePosition.y > Screen.height - 20)
 		{
 			transform.position += new Vector3(0, 0, speed);
+			if (transform.position.z > target.position.z + 10.0) {
+				transform.position -= new Vector3(0,0,speed);
+			}
 		}
 	}
 }
