@@ -16,7 +16,7 @@ public class AnsweringSystem : MonoBehaviour {
     Button choiceButton2;
     Text answerText1, answerText2;
 
-    Interaction talker;
+    Interactable talker;
 
 
     void Awake()

@@ -13,7 +13,7 @@ public class InventoryUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        inventory = Inventory.instance;
+        inventory = Inventory.Instance;
         inventory.onItemChangedCalledBack += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();

@@ -19,13 +19,7 @@ public class CharacterStats : MonoBehaviour
 
     #endregion
    
-
-    private bool alive = true;
-    private bool sleeping = false;
-    private bool starvation = false;
-
-    public bool showStats;
-
+       
     [Range(0, 200)]
     public int maxHealth = 100;
     public float currentHealth { get; private set; }
@@ -50,17 +44,69 @@ public class CharacterStats : MonoBehaviour
     public int intelligence;
     public int agility;
     public int authority;
-      
-  
+
+    private bool alive = true;
+    private bool sleeping = false;
+    private bool starvation = false;
+
+    public float[] GetAllStats()
+    {
+        float[] stats = new float[12];
+        stats[0] = currentHealth;
+        stats[1] = lvl;
+        stats[2] = lvlUpPoints;
+        stats[3] = ExpToLvlUp;
+        stats[4] = EXP;
+        stats[5] = money;
+        stats[6] = hunger;
+        stats[7] = sleepiness;
+        stats[8] = sanity;
+        stats[9] = intelligence;
+        stats[10] = agility;
+        stats[11] = authority;
+        return stats;
+    }
+
+    public void SetAllStats(float[] newStats)
+    {
+        currentHealth = newStats[0];
+        lvl = (int)newStats[1];
+        lvlUpPoints = (int)newStats[2];
+        ExpToLvlUp = newStats[3];
+        EXP = newStats[4];
+        money = newStats[5];
+        hunger = newStats[6];
+        sleepiness = newStats[7];
+        sanity = (int)newStats[8];
+        intelligence = (int)newStats[9];
+        agility = (int)newStats[10];
+        authority = (int)newStats[11];
+    }
+
+    public bool[] GetAllPlayerStates()
+    {
+        bool[] states = new bool[3];
+        states[0] = alive;
+        states[1] = sleeping;
+        states[2] = starvation;
+
+        return states;
+    }
+
+    public void SetAllPlayerStates(bool[] newStates)
+    {
+        alive = newStates[0];
+        sleeping = newStates[1];
+        starvation = newStates[2];
+    }
+
     private void Start()
     {
         alive = true;
-        showStats = false;
         currentHealth = maxHealth;
-		//maxValue = 100;
     }
 
-    private void FixedUpdate()
+    void Update()
     {
         if (alive)
         {
@@ -70,37 +116,27 @@ public class CharacterStats : MonoBehaviour
 
             if (starvation)
                 TakeDamage(hungerDyingConst);
-        }
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P)) // открыть/закрыть окно с параметрами
-            showStats = !showStats;
-
-        if (alive)
-        {
 
             if (currentHealth <= 0 && alive)
                 Die();
 
             if (EXP > ExpToLvlUp)
-                lvlUp();
+                LvlUp();
         }
     }
 
-	public void lvlUp()
+	public void LvlUp()
     {
         lvl++;
 		EXP -= ExpToLvlUp;
-        this.ExpToLvlUp += Mathf.Floor(ExpToLvlUp / 2.5f); //
+        ExpToLvlUp += Mathf.Floor(ExpToLvlUp / 2.5f); //
         lvlUpPoints += 5;
     }
 
     public void TakeDamage(float damage)
     {
         // придумать что-то получше
-        // damage *= (100 - sanity.GetValue()) / 100; 
+        // damage *= (maxValue - sanity.GetValue()) / 100; 
         damage = Mathf.Clamp(damage, 0, int.MaxValue);
 
         currentHealth -= damage;
@@ -161,7 +197,7 @@ public class CharacterStats : MonoBehaviour
         starvation = true;
     }
 
-    public void changeMoney(float amount)
+    public void ChangeMoney(float amount)
     {
         money += amount;
         if (money < 0)
@@ -172,45 +208,6 @@ public class CharacterStats : MonoBehaviour
     {
         EXP += amount;
         if (EXP > ExpToLvlUp)
-            lvlUp();
-    }
-
-    void OnGUI()
-    {
-        if (showStats) //если статы отображаются 
-		{
-
-            if (lvlUpPoints > 0) //если очков статов больше 0 делаем кнопки для повышения статов 
-            {
-                GUI.Label(new Rect(10, 295, 300, 20), "points " + lvlUpPoints.ToString());
-                if (GUI.Button(new Rect(150, 235, 20, 20), "+")) //Для ума 
-                {
-                    if (lvlUpPoints > 0)
-                    {
-                        lvlUpPoints -= 1;
-                        intelligence += 5;
-                    }
-                }
-                if (GUI.Button(new Rect(150, 255, 20, 20), "+")) //Для проворства  
-                {
-                    if (lvlUpPoints > 0)
-                    {
-                        lvlUpPoints -= 1;
-                        agility += 5;
-                    }
-                }
-                if (GUI.Button(new Rect(150, 275, 20, 20), "+")) //Для аворитета 
-                {
-                    if (lvlUpPoints > 0)
-                    {
-                        lvlUpPoints -= 1;
-                        authority += 5;
-                    }
-                }
-            }
-        }
-        else if (showStats)
-            useGUILayout = false; //Скрываем окно статов 
-    }
-		
+            LvlUp();
+    }    
 }

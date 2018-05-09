@@ -91,15 +91,23 @@ public class SettingsManager : MonoBehaviour {
 
     public void LoadSettings()
     {
-        gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gameSettings.json"));
-
-        musicVolumeSlider.value = gameSettings.musicVlolume;
-        antialiasingDropdown.value = gameSettings.antialiasing;
-        vSyncDropdown.value = gameSettings.vSync;
-        textureQualityDropdown.value = gameSettings.textureQualiy;
-        resolutionDropdown.value = gameSettings.resolutionIndex;
-        fullscreenToggle.isOn = gameSettings.fullscreen;
-
+        try
+        {
+            gameSettings = JsonUtility.FromJson<GameSettings>(File.ReadAllText(Application.persistentDataPath + "/gameSettings.json"));
+        }catch(FileNotFoundException e)
+        {
+            Debug.Log(e);
+            gameSettings = null;
+        }
+        if (gameSettings != null)
+        {
+            musicVolumeSlider.value = gameSettings.musicVlolume;
+            antialiasingDropdown.value = gameSettings.antialiasing;
+            vSyncDropdown.value = gameSettings.vSync;
+            textureQualityDropdown.value = gameSettings.textureQualiy;
+            resolutionDropdown.value = gameSettings.resolutionIndex;
+            fullscreenToggle.isOn = gameSettings.fullscreen;
+        }
         RefreshValues();
     }
 

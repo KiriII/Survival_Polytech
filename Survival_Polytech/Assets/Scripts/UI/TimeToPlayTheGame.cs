@@ -8,6 +8,6 @@ public class TimeToPlayTheGame : MonoBehaviour {
 
     private void OnMouseDown()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Loader");
     }
 }

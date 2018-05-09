@@ -4,23 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ClosingStats : MonoBehaviour {
-
-
-	private int maxHealth;
-	private float currentHealth;
-	private int lvl;
-	private float ExpToLvlUp;
-	private float EXP;
-	private float money;
-	private float hunger;
-	private float sleepiness;
-	private int sanity;
-	private int intelligence;
-	private int agility;
-	private int authority;
-
-
-	Text text;
+    
+    	
 	public Text currentHealthT;
 	public Text moneyT;
 	public Text sanityT;
@@ -32,9 +17,24 @@ public class ClosingStats : MonoBehaviour {
 	public Text hungerT;
 	public Text sleepinessT;
 
-	// Use this for initialization
-	void Start () {
-		text = GetComponent <Text> ();
+    private Text text;
+
+    private int maxHealth;
+    private float currentHealth;
+    private int lvl;
+    private float ExpToLvlUp;
+    private float EXP;
+    private float money;
+    private float hunger;
+    private float sleepiness;
+    private int sanity;
+    private int intelligence;
+    private int agility;
+    private int authority;
+
+    // Use this for initialization
+    void Start () {
+        text = GetComponent<Text>();
 		maxHealth = CharacterStats.Instance.maxHealth;
 		currentHealth = CharacterStats.Instance.currentHealth;
 		lvl = CharacterStats.Instance.lvl;
@@ -51,30 +51,29 @@ public class ClosingStats : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		maxHealth = CharacterStats.Instance.maxHealth;
-		currentHealth = CharacterStats.Instance.currentHealth;
-		lvl = CharacterStats.Instance.lvl;
-		ExpToLvlUp = CharacterStats.Instance.ExpToLvlUp;
-		EXP = CharacterStats.Instance.EXP;
-		money = CharacterStats.Instance.money;
-		hunger = CharacterStats.Instance.hunger;
-		sleepiness = CharacterStats.Instance.sleepiness;
-		sanity = CharacterStats.Instance.sanity;
-		intelligence = CharacterStats.Instance.intelligence;
-		agility = CharacterStats.Instance.agility;
-		authority = CharacterStats.Instance.authority;
-		ExpToLvlUp = CharacterStats.Instance.ExpToLvlUp;
-		currentHealthT.text = "Health " + currentHealth + "/" + maxHealth;
-		lvlT.text = "Level: " + lvl;
-		EXPT.text = "EXP " + EXP + "/" + ExpToLvlUp;
-		moneyT.text = "Money " + money;
-		hungerT.text = "Hunger " + hunger;
-		sleepinessT.text = "sleepiness " + sleepiness;
-		sanityT.text = "sanity " + sanity;
-		intelligenceT.text = "intelligence " + intelligence;
-		agilityT.text = "agility " + agility;
-		authorityT.text = "authority " + authority;
+            maxHealth = CharacterStats.Instance.maxHealth;
+            currentHealth = CharacterStats.Instance.currentHealth;
+            lvl = CharacterStats.Instance.lvl;
+            ExpToLvlUp = CharacterStats.Instance.ExpToLvlUp;
+            EXP = CharacterStats.Instance.EXP;
+            money = CharacterStats.Instance.money;
+            hunger = CharacterStats.Instance.hunger;
+            sleepiness = CharacterStats.Instance.sleepiness;
+            sanity = CharacterStats.Instance.sanity;
+            intelligence = CharacterStats.Instance.intelligence;
+            agility = CharacterStats.Instance.agility;
+            authority = CharacterStats.Instance.authority;
+            ExpToLvlUp = CharacterStats.Instance.ExpToLvlUp;
 
-		
+            currentHealthT.text = "Health " + (int)currentHealth + "/" + maxHealth;
+            lvlT.text = "Level: " + lvl;
+            EXPT.text = "EXP " + EXP + "/" + ExpToLvlUp;
+            moneyT.text = "Money " + money;
+            hungerT.text = "Hunger " + (int)hunger;
+            sleepinessT.text = "sleepiness " + (int)sleepiness;
+            sanityT.text = "sanity " + sanity;
+            intelligenceT.text = "intelligence " + intelligence;
+            agilityT.text = "agility " + agility;
+            authorityT.text = "authority " + authority;
 	}
 }

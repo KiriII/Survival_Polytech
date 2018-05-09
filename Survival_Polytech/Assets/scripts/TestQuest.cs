@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class TestQuest : Interaction {
+public class TestQuest : Interactable {
     
     private int expAmount;
 
@@ -15,12 +15,13 @@ public class TestQuest : Interaction {
 
     public override void Interact()
     {
-        if (Inventory.instance.items.Count >= 2)
+        if (Inventory.Instance.items.Count >= 2)
         {
             if (gameObject != null)
             {                
                 FloatingTextController.CreateFloatingText("EXP +" + expAmount.ToString(), transform);
                 CharacterStats.Instance.EarnEXP(2500);
+                SaveSystem.Instance.AddToObjectsToDel(gameObject);
                 Destroy(gameObject);
             }
         }

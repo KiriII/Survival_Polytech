@@ -12,7 +12,7 @@ public class Item : ScriptableObject {
   
     public void removeFromInventory()
     {
-        Inventory.instance.Remove(this);
+        Inventory.Instance.Remove(this);
     }
 
     public virtual void Use()

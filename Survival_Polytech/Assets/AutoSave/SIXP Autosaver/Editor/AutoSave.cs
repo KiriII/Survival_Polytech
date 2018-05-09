@@ -49,9 +49,9 @@ public class AutoSave : EditorWindow
 				timer = null;
 			}
 		}
-		EditorApplication.hierarchyWindowChanged -= HierarchyChanged;
+		EditorApplication.hierarchyChanged -= HierarchyChanged;
 		EditorApplication.playmodeStateChanged -= playModeChanged;
-		EditorApplication.hierarchyWindowChanged += HierarchyChanged;
+		EditorApplication.hierarchyChanged += HierarchyChanged;
 		EditorApplication.playmodeStateChanged += playModeChanged;
 
 		if (instance != null) {

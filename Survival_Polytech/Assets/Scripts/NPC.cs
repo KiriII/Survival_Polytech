@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NPC : Interaction {
+public class NPC : Interactable {
 
     public string NpcName = "???";
     public string[] dialogue;
 
-
+    
     public string[] allAnswers;
     public int[] indexOfAnswers;
 
@@ -16,7 +16,7 @@ public class NPC : Interaction {
 
     private GameObject hero;
     private NavMeshAgent playerNavMesh;
-    private Move playerMovement;
+    private PlayerMovement playerMovement;
     private string[][] answers;
     private bool isInteracting = false;
 
@@ -25,7 +25,7 @@ public class NPC : Interaction {
         tupoiNPC = GetComponent<TupoiNPC>();
         hero = GameObject.FindGameObjectWithTag("Player");
         playerNavMesh = hero.GetComponent<NavMeshAgent>();
-        playerMovement = hero.GetComponent<Move>();
+        playerMovement = hero.GetComponent<PlayerMovement>();
         descriptionText = NpcName;
 
         answers = new string[allAnswers.Length / 2][];

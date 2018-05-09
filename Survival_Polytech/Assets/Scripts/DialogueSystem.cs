@@ -23,7 +23,7 @@ public class DialogueSystem : MonoBehaviour {
     int indexOfAnswer;
     bool answering;
 
-    Interaction talker;
+    Interactable talker;
 
 	
 	void Awake () {
@@ -56,7 +56,7 @@ public class DialogueSystem : MonoBehaviour {
         CreateDialogue();
     }
 
-    public void AddNewMonologue(string npcName, string[] lines, Interaction talker)
+    public void AddNewMonologue(string npcName, string[] lines, Interactable talker)
     {
         this.dialogueIndex = 0;
         this.talker = talker;
@@ -83,7 +83,7 @@ public class DialogueSystem : MonoBehaviour {
         CheckAnswerRequirement();
     }
 
-    public void AddNewDialogue(string npcName, string[] lines, Interaction talker, string[][] answers, int[] indexOfAnswers)
+    public void AddNewDialogue(string npcName, string[] lines, Interactable talker, string[][] answers, int[] indexOfAnswers)
     {
         this.dialogueIndex = 0;
 		this.indexOfAnswer = 0;
@@ -126,7 +126,7 @@ public class DialogueSystem : MonoBehaviour {
                     talker = null;
                 }
                 dialoguePanel.SetActive(false);
-                Debug.Log("End of converstion");
+                Debug.Log("End of conversation");
             }
         }
     }
@@ -154,8 +154,17 @@ public class DialogueSystem : MonoBehaviour {
     {
         answering = false;
         continueButton.interactable = true;
-        // разветвление диалога (answerIndex)
-        dialogueIndex += answerIndex; // простое разветвление
+        AfterAnsweringAction(answerIndex);
         ContinueDialogue();
+    }
+
+    public void AfterAnsweringAction(int answerI)
+    {
+        // разветвление диалога (answerIndex)
+        dialogueIndex += answerI; // простое разветвление
+        if (answerI == 0)
+        {
+            // event
+        }
     }
 }

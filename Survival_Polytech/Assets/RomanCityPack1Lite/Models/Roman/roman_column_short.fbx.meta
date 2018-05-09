@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: d32078c4f23434270b4ce778bb886ac9
-timeCreated: 1496466201
-licenseType: Store
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -11,6 +9,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: Column
     6400000: //RootNode
+    2186277476908879412: ImportLogs
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -35,6 +34,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

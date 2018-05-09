@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PickUp : Interaction {
+public class PickUp : Interactable {
 
     public Image takeble;
     public Item item;
@@ -33,14 +33,15 @@ public class PickUp : Interaction {
 
     void Take()
     {
-       bool wasPickedUp = Inventory.instance.Add(item);
+       bool wasPickedUp = Inventory.Instance.Add(item);
         if (wasPickedUp)
         {
-           ForImageRemove();
-           description.enabled = false;
-           text.enabled = false;
-           RemoveText();
-           Destroy(gameObject);
+            ForImageRemove();
+            description.enabled = false;
+            text.enabled = false;
+            RemoveText();
+            SaveSystem.Instance.AddToObjectsToDel(gameObject);
+            Destroy(gameObject);
         }
     }
 }
