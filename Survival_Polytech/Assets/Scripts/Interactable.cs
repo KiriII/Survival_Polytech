@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -69,7 +68,13 @@ public class Interactable : MonoBehaviour {
     {
         if (detect != null)
         {
-            detect.GetComponent<MeshRenderer>().enabled = true;
+            try
+            {
+                detect.GetComponent<MeshRenderer>().enabled = true;
+            }catch(MissingComponentException e)
+            {
+                Debug.Log("No MeshRenderer");
+            }
             description.enabled = true;
             SetText();
             ForImageSet();
@@ -80,7 +85,14 @@ public class Interactable : MonoBehaviour {
     {
         if (detect != null)
         {
-            detect.GetComponent<MeshRenderer>().enabled = false;
+            try
+            {
+                detect.GetComponent<MeshRenderer>().enabled = false;
+            }
+            catch (MissingComponentException e)
+            {
+                Debug.Log("No MeshRenderer");
+            }
             description.enabled = false;
             RemoveText();
             ForImageRemove();

@@ -16,7 +16,7 @@ public class SaveSystem : MonoBehaviour {
     {
         if (Instance != null)
         {
-            Debug.LogWarning("Fix it!");
+            Debug.LogWarning("Slomalis' seivi chini daun");
             return;
         }
         Instance = this;

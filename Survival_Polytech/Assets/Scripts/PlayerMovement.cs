@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         StopFollowing();
     }
 
-    void FollowTarget(Interactable newTarget)
+    public void FollowTarget(Interactable newTarget)
     {
         mesh.stoppingDistance = newTarget.radius * 0.8f;
         target = newTarget.interactTransform;

@@ -69,4 +69,16 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+
+    public bool Find(Item item)
+    {
+        if (items.Count != 0)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                if (items[i] == item) return true;
+            }
+        }
+        return false;
+    }
 }
