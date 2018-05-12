@@ -14,6 +14,8 @@ public class SettingsManager : MonoBehaviour {
     public Slider musicVolumeSlider;
     public Button applyButton;
     public Button exitButton;
+	public Button saveButton;
+	public Button loadButton;
 
     public AudioSource musicSource;
     public Resolution[] resolutions;
@@ -32,6 +34,8 @@ public class SettingsManager : MonoBehaviour {
         musicVolumeSlider.onValueChanged.AddListener(delegate { OnMusicVolumeChange(); });
         applyButton.onClick.AddListener(delegate { OnApplyButtonClick(); });
         exitButton.onClick.AddListener(delegate { OnExitButtonClick(); });
+		saveButton.onClick.AddListener(delegate { onSaveButtonClick(); });
+		loadButton.onClick.AddListener(delegate { onLoadButtonClick(); });
 
         resolutions = Screen.resolutions;
         foreach(Resolution resolution in resolutions)
@@ -41,6 +45,14 @@ public class SettingsManager : MonoBehaviour {
 
         LoadSettings();
     }
+	
+	public void onSaveButtonClick() {
+		SaveSystem.Instance.SaveLastState();
+	}
+	
+	public void onLoadButtonClick() {
+		SaveSystem.Instance.LoadFromLastSave();
+	}
 
     public void OnFullscreenToggle()
     {
@@ -88,6 +100,10 @@ public class SettingsManager : MonoBehaviour {
         string jsonData = JsonUtility.ToJson(gameSettings, true);
         File.WriteAllText(Application.persistentDataPath + "/gameSettings.json", jsonData);
     }
+	
+	public void SaveData() 
+	{
+	}
 
     public void LoadSettings()
     {

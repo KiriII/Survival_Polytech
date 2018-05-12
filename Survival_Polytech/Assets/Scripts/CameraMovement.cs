@@ -5,29 +5,46 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour {
 
     public float speed = 0.2f;
-    public float high = 5;
-    public float zoomSpeed = 1;
-    public int minZoom = 3;
-    public int maxZoom = 10;
     public Transform target;
     public float smoothing = 3f;
 
+    [Space]    
+    [Range(10, 70)]
+    public int startingZoom = 45;
+    [Range(10, 69)]
+    public int minZoom = 15;
+    [Range(11, 70)]
+    public int maxZoom = 65;
+    public float zoomSpeed = 25;
+
     RaycastHit hit;
     Vector3 offset;
+    Camera mainCam;
     float speedMult;
 
     void Start()
     {
+        mainCam = GetComponent<Camera>();
         offset = transform.position - target.position;
+
+        if (minZoom > maxZoom)
+        {
+            minZoom += maxZoom;
+            maxZoom = minZoom - maxZoom;
+            minZoom -= maxZoom;
+        }
+        if (!(startingZoom >= minZoom && startingZoom <= maxZoom))
+            startingZoom = (maxZoom + minZoom) / 2;
+        mainCam.fieldOfView = startingZoom;
+
+        zoomSpeed *= 20;
         speedMult = speed / 100;
     }
 
 
     void Update()
     {
-
-        HighPosition();
-        
+        Zooming(Input.GetAxisRaw("Mouse ScrollWheel"));
 
         if (Input.GetKey(KeyCode.LeftAlt))
         {
@@ -41,37 +58,17 @@ public class CameraMovement : MonoBehaviour {
         }
     }
 
-    void HighPosition()
+    void Zooming(float scrolling)
     {
-        Vector3 directionRay = transform.TransformDirection(Vector3.forward);
-        if (Physics.Raycast(transform.position, directionRay, out hit, 50))
+        if (scrolling != 0)
         {
-            if (hit.collider.tag == "terrain")
-            {
-                if (hit.distance < high)
-                {
-                    transform.position += new Vector3(0, high - hit.distance, 0) * Time.deltaTime;
-                }
-                if (hit.distance > high)
-                {
-                    transform.position -= new Vector3(0, hit.distance - high, 0) * Time.deltaTime;
-                }
-            }
-        }
-        if (Input.GetAxis("Mouse ScrollWheel") > 0 && transform.position.y > minZoom)
-        {
-            transform.position -= new Vector3(0, zoomSpeed * Time.deltaTime, 0);
-            speed -= speedMult;
-            offset = transform.position - target.position;
-        }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0 && transform.position.y < maxZoom)
-        {
-            transform.position += new Vector3(0, zoomSpeed * Time.deltaTime, 0);
-            speed += speedMult;
-            offset = transform.position - target.position;
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            mainCam.fieldOfView -= scroll * zoomSpeed * Time.deltaTime;
+            mainCam.fieldOfView = Mathf.Clamp(mainCam.fieldOfView, minZoom, maxZoom);
+            speed -= scrolling * speedMult;
         }
     }
-
+    
     void WeightPosition()
     {
         if (Input.mousePosition.x < 20)

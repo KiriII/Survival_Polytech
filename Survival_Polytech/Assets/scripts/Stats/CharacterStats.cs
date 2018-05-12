@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterStats : MonoBehaviour
 {
@@ -48,6 +49,15 @@ public class CharacterStats : MonoBehaviour
     private bool alive = true;
     private bool sleeping = false;
     private bool starvation = false;
+	
+	public GameObject agilityButton;
+	public GameObject authorityButton;
+	public GameObject intelligenceButton;
+	public GameObject panel;
+
+	private Button button1;
+	private Button button2;
+	private Button button3;
 
     public float[] GetAllStats()
     {
@@ -104,10 +114,28 @@ public class CharacterStats : MonoBehaviour
     {
         alive = true;
         currentHealth = maxHealth;
+		button1 = agilityButton.GetComponent<Button> ();
+		button2 = authorityButton.GetComponent<Button> ();
+		button3 = intelligenceButton.GetComponent<Button> ();
+		button1.onClick.AddListener (delegate {AgilityAdd();});
+		button2.onClick.AddListener (delegate {AuthorityAdd();});
+		button3.onClick.AddListener (delegate {IntelligenceAdd();});
     }
 
     void Update()
     {
+		if (panel.activeSelf) {
+			if (lvlUpPoints > 0) {
+				agilityButton.SetActive (true);
+				authorityButton.SetActive (true);
+				intelligenceButton.SetActive (true);
+			} else {
+				agilityButton.SetActive (false);
+				authorityButton.SetActive(false);
+				intelligenceButton.SetActive (false);
+			}
+		}
+		
         if (alive)
         {
             FallingAsleep(constOfSleepiness);
@@ -124,6 +152,21 @@ public class CharacterStats : MonoBehaviour
                 LvlUp();
         }
     }
+	
+	private void AgilityAdd() {
+		lvlUpPoints -=1;
+		agility += 5;
+	}
+
+	private void AuthorityAdd() {
+		lvlUpPoints -=1;
+		authority += 5;
+	}
+
+	private void IntelligenceAdd() {
+		lvlUpPoints -=1;
+		intelligence += 5;
+	}
 
 	public void LvlUp()
     {

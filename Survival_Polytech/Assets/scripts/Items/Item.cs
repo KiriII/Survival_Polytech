@@ -6,6 +6,7 @@ using UnityEngine;
 public class Item : ScriptableObject {
 
     new public string name = "New Item";
+	public string ID = "";
     public Sprite icon = null;
     public bool isDefaultItem = false;
 
@@ -19,9 +20,9 @@ public class Item : ScriptableObject {
     {
         Debug.Log("USING " + name);
     }
-
-    public virtual void PerformAction()
-    {
-        Debug.Log("Doing some cool staf with " + name);
-    }
+	
+	public virtual void PerformAction() 
+	{
+		Debug.Log("Doing some cool thing with" + name);
+	}
 }

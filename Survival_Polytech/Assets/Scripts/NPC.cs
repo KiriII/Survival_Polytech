@@ -17,7 +17,8 @@ public class NPC : Interactable {
     private GameObject hero;
     private NavMeshAgent playerNavMesh;
     private PlayerMovement playerMovement;
-    private string[][] answers;
+    [HideInInspector]
+    public string[][] Answers { get; set; }
     private bool isInteracting = false;
 
     private void Start()
@@ -28,12 +29,12 @@ public class NPC : Interactable {
         playerMovement = hero.GetComponent<PlayerMovement>();
         descriptionText = NpcName;
 
-        answers = new string[allAnswers.Length / 2][];
+        Answers = new string[allAnswers.Length / 2][];
         for (int i = 0; i < allAnswers.Length / 2; i++)
         {
-            answers[i] = new string[2];
-            answers[i][0] = allAnswers[2 * i];
-            answers[i][1] = allAnswers[2 * i + 1];
+            Answers[i] = new string[2];
+            Answers[i][0] = allAnswers[2 * i];
+            Answers[i][1] = allAnswers[2 * i + 1];
         }
     }
 
@@ -46,7 +47,7 @@ public class NPC : Interactable {
     public override void Interact()
     {
         //DialogueSystem.Instance.AddNewMonologue(NpcName, dialogue, this);
-        DialogueSystem.Instance.AddNewDialogue(NpcName, dialogue, this, answers, indexOfAnswers);
+        DialogueSystem.Instance.AddNewDialogue(NpcName, dialogue, this, Answers, indexOfAnswers);
         tupoiNPC.StopWalking();
         // rotation...
         isInteracting = true;
