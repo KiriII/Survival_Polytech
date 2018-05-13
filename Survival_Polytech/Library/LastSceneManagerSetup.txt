@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/ArtMainEnter.unity
+- path: Assets/Scenes/ArtMainEnterNew.unity
   isLoaded: 1
   isActive: 1
