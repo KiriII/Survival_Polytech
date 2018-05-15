@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CoffeeIsLife : Quest {
 
-    public Vector3 goalPosition;
+    public Transform goalPosition;
 
     void Start()
     {
@@ -15,9 +15,9 @@ public class CoffeeIsLife : Quest {
         ExperienceReward = 450;
         Goals = new List<Goal>
         {
-            new DestinationGoal(this, goalPosition, "Find cafe", false, 0, 1),
+            new DestinationGoal(this, goalPosition.position, "Find cafe", false, 0, 1),
             new CollectionGoal(this, "coffee_1", "Take coffee", false, 0, 1)
-            //new CoffeeGoal(this, 1, "Kill 2 Vampires", false, 0, 2)
+            //new CoffeeGoal(this, 1, "Drink some coffee", false, 0, 2)
         };
 
         Goals.ForEach(g => g.Init());

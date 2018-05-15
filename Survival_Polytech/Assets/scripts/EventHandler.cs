@@ -8,6 +8,8 @@ public class EventHandler : MonoBehaviour {
     public static OnItemChangedHandler OnItemAddedToInventory;
     public static OnItemChangedHandler OnItemRemovedFromInventory;
 
+
+
     public delegate void PlayerHealthEventHandler(int currentHealth);
     public static event PlayerHealthEventHandler OnPlayerHealthChanged;
 

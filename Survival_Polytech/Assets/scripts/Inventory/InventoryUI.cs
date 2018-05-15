@@ -20,10 +20,12 @@ public class InventoryUI : MonoBehaviour {
 	}
 
     private void OnEnable()
-    {
+    {        
         EventHandler.OnItemAddedToInventory += UpdateUI;
         EventHandler.OnItemRemovedFromInventory += UpdateUI;
-        UpdateUI(null);
+
+        if (inventory == null) inventory = Inventory.Instance;
+        else UpdateUI(null);
     }
 
     private void OnDisable()

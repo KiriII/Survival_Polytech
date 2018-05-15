@@ -19,7 +19,6 @@ public class DestinationGoal : Goal {
     public override void Init()
     {
         base.Init();
-        // UIEventHandler.OnItemAddedToInventory += ItemPickedUp;
     }    
 
     void CheckPosition(Vector3 eventPos)
