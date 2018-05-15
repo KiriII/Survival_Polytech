@@ -12,20 +12,27 @@ public class InventoryUI : MonoBehaviour {
     InventorySlot[] slots;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         inventory = Inventory.Instance;
-        inventory.onItemChangedCalledBack += UpdateUI;
+        //inventory.onItemChangedCalledBack += UpdateUI;
 
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
 	}
 
+    private void OnEnable()
+    {
+        EventHandler.OnItemAddedToInventory += UpdateUI;
+        EventHandler.OnItemRemovedFromInventory += UpdateUI;
+        UpdateUI(null);
+    }
 
-	void Update () {
-  
-		
-	}
+    private void OnDisable()
+    {
+        EventHandler.OnItemAddedToInventory -= UpdateUI;
+        EventHandler.OnItemRemovedFromInventory -= UpdateUI;
+    }
 
-    void UpdateUI()
+    void UpdateUI(Item nullItem)
     {
         for (int i = 0; i < slots.Length; i++)
         {

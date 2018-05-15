@@ -24,6 +24,8 @@ public class Quest : MonoBehaviour {
     public int ExperienceReward { get; set; }
     public Item ItemReward { get; set; }
     public bool Completed { get; set; }
+    public bool RewardOnComplete { get; set; }
+
 
     private void Start()
     {
@@ -33,7 +35,18 @@ public class Quest : MonoBehaviour {
     public void CheckGoals()
     {        
         Completed = Goals.All(g => g.Completed);
-        if (Completed) GiveReward();
+        if (Completed)
+        {
+            Done();
+            if (RewardOnComplete) GiveReward();
+        }
+
+       
+    }
+
+    private void Done()
+    {
+
     }
 
     public void GiveReward()

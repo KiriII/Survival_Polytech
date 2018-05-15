@@ -4,24 +4,41 @@ using UnityEngine;
 
 public class EventHandler : MonoBehaviour {
 
-    public delegate bool ItemEventHandler(Item item);
-    public static event ItemEventHandler OnItemAddedToInventory;
+    public delegate void OnItemChangedHandler(Item item);
+    public static OnItemChangedHandler OnItemAddedToInventory;
+    public static OnItemChangedHandler OnItemRemovedFromInventory;
+
+    public delegate void PlayerHealthEventHandler(int currentHealth);
+    public static event PlayerHealthEventHandler OnPlayerHealthChanged;
+
+    public delegate void PlayerLevelEventHandler();
+    public static event PlayerLevelEventHandler OnPlayerLevelChange;
 
     public static void ItemAddedToInventory(Item item)
     {
         if (OnItemAddedToInventory != null)
-            OnItemAddedToInventory(item);
+        {
+            OnItemAddedToInventory.Invoke(item);
+        }
     }
 
-    public static void ItemAddedToInventory(List<Item> items)
+    public static void ItemRemovedFromInventory(Item item)
     {
-        if (OnItemAddedToInventory != null)
+        if (OnItemRemovedFromInventory != null)
         {
-            foreach (Item item in items)
-            {
-                OnItemAddedToInventory(item);
-            }
+            OnItemRemovedFromInventory.Invoke(item);
         }
-	}
+    }
+
+    public static void HealthChanged(int currentHealth)
+    {
+        if (OnPlayerHealthChanged != null)
+            OnPlayerHealthChanged(currentHealth);
+    }
+
+    public static void PlayerLevelChanged()
+    {
+        if (OnPlayerLevelChange != null)
+            OnPlayerLevelChange();
+    }
 }
-    

@@ -20,6 +20,11 @@ public class DestinationGoal : Goal {
     {
         base.Init();
         // UIEventHandler.OnItemAddedToInventory += ItemPickedUp;
+    }    
+
+    void CheckPosition(Vector3 eventPos)
+    {
+
     }
 
     void DestinationReached()

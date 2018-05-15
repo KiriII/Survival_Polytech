@@ -22,14 +22,12 @@ public class CollectionGoal : Goal {
         EventHandler.OnItemAddedToInventory += ItemPickedUp;
     }
 
-    bool ItemPickedUp(Item item)
+    void ItemPickedUp(Item item)
     {
         if (item.ID == this.ItemID)
         {
             this.CurrentAmount++;
             Evaluate();
-            return true;
         }
-        return false;
     }
 }

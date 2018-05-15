@@ -20,13 +20,11 @@ public class Inventory : MonoBehaviour
     }
 
     #endregion
-
-    public delegate void OnItemChanged();
-    public OnItemChanged onItemChangedCalledBack;
-
+    
     public int space = 20;
 
     public List<Item> items = new List<Item>();
+    
 
     public bool Add(Item item)
     {
@@ -40,10 +38,7 @@ public class Inventory : MonoBehaviour
 
             items.Add(item);
 
-            if (onItemChangedCalledBack != null)
-            {
-                onItemChangedCalledBack.Invoke();
-            }
+            EventHandler.ItemAddedToInventory(item);
         }
         return true;
     }
@@ -52,10 +47,7 @@ public class Inventory : MonoBehaviour
     {
         items.Remove(item);
 
-        if (onItemChangedCalledBack != null)
-        {
-            onItemChangedCalledBack.Invoke();
-        }
+        EventHandler.ItemRemovedFromInventory(item);
     }
 
     public void RemoveAll()

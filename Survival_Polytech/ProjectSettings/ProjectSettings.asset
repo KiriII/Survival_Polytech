@@ -622,7 +622,7 @@ PlayerSettings:
     Collab: 0
     UNet: 1
   facebookSdkVersion: 7.9.4
-  apiCompatibilityLevel: 2
+  apiCompatibilityLevel: 3
   cloudProjectId: fe923a18-50de-4724-b5a3-6820baa65e9d
   projectName: SurvivalPolytech
   organizationId: shurikthebest
