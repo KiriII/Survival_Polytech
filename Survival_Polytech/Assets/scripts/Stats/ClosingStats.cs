@@ -16,6 +16,7 @@ public class ClosingStats : MonoBehaviour {
 	public Text intelligenceT;
 	public Text hungerT;
 	public Text sleepinessT;
+	public Text lvlUpPointsT;
 
     private Text text;
 
@@ -31,6 +32,7 @@ public class ClosingStats : MonoBehaviour {
     private int intelligence;
     private int agility;
     private int authority;
+	private int lvlUpPoints;
 
     // Use this for initialization
     void Start () {
@@ -47,6 +49,7 @@ public class ClosingStats : MonoBehaviour {
 		intelligence = CharacterStats.Instance.intelligence;
 		agility = CharacterStats.Instance.agility;
 		authority = CharacterStats.Instance.authority;
+		lvlUpPoints = CharacterStats.Instance.lvlUpPoints;
 	}
 	
 	// Update is called once per frame
@@ -64,6 +67,7 @@ public class ClosingStats : MonoBehaviour {
             agility = CharacterStats.Instance.agility;
             authority = CharacterStats.Instance.authority;
             ExpToLvlUp = CharacterStats.Instance.ExpToLvlUp;
+			lvlUpPoints = CharacterStats.Instance.lvlUpPoints;
 
             currentHealthT.text = "Health " + (int)currentHealth + "/" + maxHealth;
             lvlT.text = "Level: " + lvl;
@@ -75,5 +79,7 @@ public class ClosingStats : MonoBehaviour {
             intelligenceT.text = "intelligence " + intelligence;
             agilityT.text = "agility " + agility;
             authorityT.text = "authority " + authority;
+			lvlUpPointsT.text = "points " + lvlUpPoints;
+		
 	}
 }

@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-public class PlayerMovement : MonoBehaviour
-{
-
+public class PlayerMovement : MonoBehaviour{
+	private Animator anim;
     public Interactable focus;
 
     Transform target; // for not static focuses
@@ -15,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         mesh = GetComponent<NavMeshAgent>();
+		anim = GetComponent<Animator>();
+		anim.enabled = true;
     }
 
 
@@ -28,11 +29,11 @@ public class PlayerMovement : MonoBehaviour
         {
             MoveToPoint(target.position);
         }
-
+		
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 1000) && Input.GetMouseButtonDown(0))
-        {
+        {	
             Interactable inter = hit.collider.GetComponent<Interactable>();
             if (inter != null)
             {
@@ -45,12 +46,21 @@ public class PlayerMovement : MonoBehaviour
                 RemoveFocus();
             }
         }
+		
+		if (mesh.remainingDistance <= mesh.stoppingDistance || mesh.isStopped) 
+		{
+			anim.SetBool("IsMoving", false);
+			Debug.Log(anim.GetBool("IsMoving"));
+		}
+	
     }
 
     public void MoveToPoint(Vector3 point)
     {
+		anim.SetBool("IsMoving", true);
+		Debug.Log(anim.GetBool("IsMoving"));
         mesh.stoppingDistance = 0f;     // for safety
-        mesh.SetDestination(point);
+        mesh.SetDestination(point);	
     }
 
     void SetFocus(Interactable newFocus)

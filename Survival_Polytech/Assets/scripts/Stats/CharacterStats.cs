@@ -25,7 +25,7 @@ public class CharacterStats : MonoBehaviour
     public int maxHealth = 100;
     public float currentHealth { get; private set; }
     public int lvl;
-    private int lvlUpPoints;
+    public int lvlUpPoints;
     public float ExpToLvlUp;
     public float EXP;
     public float money;
