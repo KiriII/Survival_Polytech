@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour{
 		if (mesh.remainingDistance <= mesh.stoppingDistance || mesh.isStopped) 
 		{
 			anim.SetBool("IsMoving", false);
-			Debug.Log(anim.GetBool("IsMoving"));
+			//Debug.Log(anim.GetBool("IsMoving"));
 		}
 	
     }
@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour{
     public void MoveToPoint(Vector3 point)
     {
 		anim.SetBool("IsMoving", true);
-		Debug.Log(anim.GetBool("IsMoving"));
+		//Debug.Log(anim.GetBool("IsMoving"));
         mesh.stoppingDistance = 0f;     // for safety
         mesh.SetDestination(point);	
     }

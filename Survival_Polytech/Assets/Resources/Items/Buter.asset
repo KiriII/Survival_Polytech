@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Name: Buter
   m_EditorClassIdentifier: 
   name: Buter
+  ID: buter
   icon: {fileID: 21300000, guid: c707e9d354dd7994fb1f98fe269f190d, type: 3}
   isDefaultItem: 0
-  eat: 50
-  earnedEXP: 1500
+  health: 0
+  eat: 70
+  sleepiness: 0
+  earnedEXP: 100

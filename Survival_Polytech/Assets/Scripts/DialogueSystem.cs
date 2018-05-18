@@ -18,6 +18,7 @@ public class DialogueSystem : MonoBehaviour {
     Text dialogueText, nameText;
     int dialogueIndex;
 
+    int numberOfAnswersPerQuestion;
     string[][] answers;
     int[] indexOfAnswerArray;
     int indexOfAnswer;
@@ -67,7 +68,7 @@ public class DialogueSystem : MonoBehaviour {
         CreateDialogue();
     }
 
-    public void AddNewDialogue(string npcName, string[] lines, string[][] answers, int[] indexOfAnswer)
+    public void AddNewDialogue(string npcName, string[] lines, string[][] answers, int[] indexOfAnswer, int numberA)
     {
         this.dialogueIndex = 0;
 		this.indexOfAnswer = 0;
@@ -78,12 +79,13 @@ public class DialogueSystem : MonoBehaviour {
         this.answers = answers;
         this.indexOfAnswerArray = indexOfAnswer;
         this.indexOfAnswer = 0;
+        this.numberOfAnswersPerQuestion = numberA;
 
         CreateDialogue();
         CheckAnswerRequirement();
     }
 
-    public void AddNewDialogue(string npcName, string[] lines, Interactable talker, string[][] answers, int[] indexOfAnswers)
+    public void AddNewDialogue(string npcName, string[] lines, Interactable talker, string[][] answers, int[] indexOfAnswers, int numberA)
     {
         this.dialogueIndex = 0;
 		this.indexOfAnswer = 0;
@@ -95,6 +97,7 @@ public class DialogueSystem : MonoBehaviour {
         this.answers = answers;
         this.indexOfAnswerArray = indexOfAnswers;
         this.indexOfAnswer = 0;
+        this.numberOfAnswersPerQuestion = numberA;
 
         CreateDialogue();
         CheckAnswerRequirement();
@@ -145,7 +148,7 @@ public class DialogueSystem : MonoBehaviour {
 
     public void CreateAnswer(string[] answerLines)
     {
-        AnsweringSystem.Instance.AddNewAnswer(answerLines);
+        AnsweringSystem.Instance.AddNewAnswer(answerLines, numberOfAnswersPerQuestion);
         answering = true;
         continueButton.interactable = false;
     }
@@ -161,6 +164,7 @@ public class DialogueSystem : MonoBehaviour {
     public void AfterAnsweringAction(int answerI)
     {
         // разветвление диалога (answerIndex)
+		if (answerI != 0) answerI = 1;
         dialogueIndex += answerI; // простое разветвление
         if (answerI == 0)
         {

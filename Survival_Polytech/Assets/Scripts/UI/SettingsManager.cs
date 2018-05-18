@@ -34,8 +34,8 @@ public class SettingsManager : MonoBehaviour {
         musicVolumeSlider.onValueChanged.AddListener(delegate { OnMusicVolumeChange(); });
         applyButton.onClick.AddListener(delegate { OnApplyButtonClick(); });
         exitButton.onClick.AddListener(delegate { OnExitButtonClick(); });
-        saveButton.onClick.AddListener(delegate { onSaveButtonClick(); });
-        loadButton.onClick.AddListener(delegate { onLoadButtonClick(); });
+        saveButton.onClick.AddListener(delegate { OnSaveButtonClick(); });
+        loadButton.onClick.AddListener(delegate { OnLoadButtonClick(); });
 
         resolutions = Screen.resolutions;
         foreach(Resolution resolution in resolutions)
@@ -93,15 +93,15 @@ public class SettingsManager : MonoBehaviour {
         File.WriteAllText(Application.persistentDataPath + "/gameSettings.json", jsonData);
     }
 
-    public void onSaveButtonClick()
+    public void OnSaveButtonClick()
     {
         SaveSystem.Instance.SaveLastState();
     }
 
-    public void onLoadButtonClick()
+    public void OnLoadButtonClick()
     {
+        UIManager.Instance.SetSettingsMenuActive(false);
         SaveSystem.Instance.LoadFromLastSave();
-        //
     }
 
     public void LoadSettings()

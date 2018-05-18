@@ -19,6 +19,7 @@ public class Item : ScriptableObject {
     public virtual void Use()
     {
         Debug.Log("USING " + name);
+        EventHandler.ItemUsed(this);
     }
 
     public virtual void PerformAction()

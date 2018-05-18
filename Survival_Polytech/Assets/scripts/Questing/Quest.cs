@@ -26,10 +26,12 @@ public class Quest : MonoBehaviour {
     public bool Completed { get; set; }
     public bool RewardOnComplete { get; set; }
 
+    public int GoalIndex { get; set; } 
 
     private void Start()
     {
         Goals = new List<Goal>();
+        GoalIndex = 0;
     }
 
     public void CheckGoals()
@@ -39,14 +41,34 @@ public class Quest : MonoBehaviour {
         {
             Done();
             if (RewardOnComplete) GiveReward();
-        }
-
-       
+        }       
     }
 
-    private void Done()
+    public void ActivateNextGoal()
     {
+        GoalIndex++;
+        if (GoalIndex < Goals.Count)
+            Goals[GoalIndex].Init();
+    }
 
+    public void ActivateGoal(int index)
+    {
+        if (index >= 0 && index < Goals.Count)
+            if (!Goals[index].Initialized)
+                Goals[index].Init();
+
+    }
+
+    public void ActivateAllGoals()
+    {
+        Goals.ForEach(g => g.Init());
+    }
+
+    public virtual void Done()
+    {	
+		
+        QuestSystem.Instance.CheckQuests();
+        // Quest result
     }
 
     public void GiveReward()

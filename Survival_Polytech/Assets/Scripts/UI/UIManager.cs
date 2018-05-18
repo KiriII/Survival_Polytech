@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour {
 
-    public GameObject settingsMenu;
+    #region Singleton
 
-    float timeScale = 1f;
+    public static UIManager Instance;
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Debug.LogWarning("Slomalsya Uai chini daun");
+            return;
+        }
+        Instance = this;
+		FloatingTextController.Initialize();
         Time.timeScale = 1;
         settingsMenu.SetActive(true);
     }
+
+    #endregion
+
+    public GameObject settingsMenu;
+
+    private float timeScale = 1f;
+    
 
     void Start()
     {        
@@ -25,6 +39,17 @@ public class UIManager : MonoBehaviour {
             settingsMenu.SetActive(!settingsMenu.activeSelf);
             if (settingsMenu.activeSelf) Time.timeScale = 0;
             else Time.timeScale = timeScale;
+
+            EventHandler.TimeScaleChanged(Time.timeScale);
         }
+    }
+
+    public void SetSettingsMenuActive(bool isActive)
+    {
+        settingsMenu.SetActive(isActive);
+        if (settingsMenu.activeSelf) Time.timeScale = 0;
+        else Time.timeScale = timeScale;
+
+        EventHandler.TimeScaleChanged(Time.timeScale);
     }
 }

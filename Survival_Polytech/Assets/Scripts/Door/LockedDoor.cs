@@ -65,7 +65,7 @@ public class LockedDoor : Interactable {
             if (!open)
             {
                 other.GetComponent<PlayerMovement>().FollowTarget(goTo);
-                Thinking.Instance.forDoor = true;
+         
             }
             else
             {
@@ -80,7 +80,7 @@ public class LockedDoor : Interactable {
         if (!open)
         {
             other.GetComponent<PlayerMovement>().FollowTarget(goTo);
-            Thinking.Instance.forDoor = true;
+
         }
     }
 

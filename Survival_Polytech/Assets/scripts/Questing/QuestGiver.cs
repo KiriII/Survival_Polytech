@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestGiver : NPC {
+public class QuestGiver : Interactable {
 
     public bool AssignedQuest { get; set; }
     public bool Helped { get; set; }
@@ -13,11 +13,17 @@ public class QuestGiver : NPC {
     [SerializeField]
     private string questType;
     private Quest Quest { get; set; }
+	private void Start() 
+	{ 
+		AssignedQuest = false; 
+		Helped = false; 
+	}
     public override void Interact()
     {
 
         if (!AssignedQuest && !Helped)
         {
+			Debug.Log("CHEEEEEEEEEEEEEEEEEEEEEEEEEEEEECK");
             base.Interact();
             AssignQuest();
         }
@@ -32,11 +38,13 @@ public class QuestGiver : NPC {
         }
     }
 
-    void AssignQuest()
-    {
-        AssignedQuest = true;
-        Quest = (Quest)quests.AddComponent(System.Type.GetType(questType));
-    }
+	void AssignQuest() 
+	{ 
+		AssignedQuest = true; 
+		//Quest = (Quest)quests.AddComponent(System.Type.GetType(questType)); 
+		QuestSystem.Instance.ActivateQuest(1); 
+		Quest = QuestSystem.Instance.Quests[1]; 
+	}
 
     void CheckQuest()
     {

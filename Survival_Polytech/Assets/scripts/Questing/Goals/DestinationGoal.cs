@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class DestinationGoal : Goal {
 
-    private Vector3 goalPosition;
+    private string goalPositionID = "0";
 
-    public DestinationGoal(Quest quest, Vector3 _goalPosition, string description, bool completed, int currentAmount, int requiredAmount)
+    public DestinationGoal(Quest quest, string _goalPositionID, string description, bool completed, int currentAmount, int requiredAmount)
     {
         this.Quest = quest;
-        this.goalPosition = _goalPosition;
+        this.goalPositionID = _goalPositionID;
         this.Description = description;
         this.Completed = completed;
         this.CurrentAmount = currentAmount;
         this.RequiredAmount = requiredAmount;
+
+        EventHandler.OnTriggerEnter += CheckPosition;
     }
 
     public override void Init()
@@ -21,13 +23,24 @@ public class DestinationGoal : Goal {
         base.Init();
     }    
 
-    void CheckPosition(Vector3 eventPos)
+    void CheckPosition(string triggerID)
     {
-
+        if (goalPositionID == triggerID)
+        {
+            Debug.Log("Destination reached");
+            CurrentAmount++;
+            Evaluate();
+        }            
     }
 
     void DestinationReached()
     {
 
+    }
+
+    public override void Complete()
+    {
+        base.Complete();
+        EventHandler.OnTriggerEnter -= CheckPosition;
     }
 }

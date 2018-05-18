@@ -50,6 +50,8 @@ public class CharacterStats : MonoBehaviour
     private bool sleeping = false;
     private bool starvation = false;
 
+    private bool isStopped = false;
+
     public GameObject agilityButton;
     public GameObject authorityButton;
     public GameObject intelligenceButton;
@@ -112,6 +114,7 @@ public class CharacterStats : MonoBehaviour
 
     private void Start()
     {
+        isStopped = false;
         alive = true;
         currentHealth = maxHealth;
 
@@ -121,6 +124,8 @@ public class CharacterStats : MonoBehaviour
         button1.onClick.AddListener(delegate { AgilityAdd(); });
         button2.onClick.AddListener(delegate { AuthorityAdd(); });
         button3.onClick.AddListener(delegate { IntelligenceAdd(); });
+
+        EventHandler.OnTimeScaleChanged += CheckTimeScale;
     }
 
     void Update()
@@ -141,7 +146,7 @@ public class CharacterStats : MonoBehaviour
             }
         }
 
-        if (alive)
+        if (alive && !isStopped)
         {
             FallingAsleep(constOfSleepiness);
 
@@ -156,6 +161,12 @@ public class CharacterStats : MonoBehaviour
             if (EXP > ExpToLvlUp)
                 LvlUp();
         }
+    }
+
+    public void CheckTimeScale(bool stop)
+    {
+        isStopped = stop;
+        Debug.Log("Time Scale Changed" + isStopped);
     }
 
     private void AgilityAdd()
@@ -194,6 +205,16 @@ public class CharacterStats : MonoBehaviour
         if (currentHealth < 0)
             currentHealth = 0;
         //Debug.Log(transform.name + " takes " + damage + " damage.");        
+    }
+
+    public void HealthChange(float amount)
+    {    
+        currentHealth += amount;
+
+        if (currentHealth < 0)
+            currentHealth = 0;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
     }
 
     public virtual void Die()

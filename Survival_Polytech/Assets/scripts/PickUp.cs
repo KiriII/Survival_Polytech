@@ -17,18 +17,20 @@ public class PickUp : Interactable {
     public override void Interact()
     {
         base.Interact(); // берет всё из оригинала
-       
+       if (!QuestSystem.Instance.Quests[1].Completed) 
+	   {
         Take();
+	   }
     }
 
     public override void ForImageSet()
     {
-        takeble.enabled = true;
+      //  takeble.enabled = true;
     }
 
     public override void ForImageRemove()
     {
-        takeble.enabled = false;
+      //  takeble.enabled = false;
     }
 
     void Take()
@@ -40,8 +42,8 @@ public class PickUp : Interactable {
             description.enabled = false;
             text.enabled = false;
             RemoveText();
-            SaveSystem.Instance.AddToObjectsToDel(gameObject);
-            Destroy(gameObject);
+          // SaveSystem.Instance.AddToObjectsToDel(gameObject);
+          // Destroy(gameObject);
         }
     }
 }

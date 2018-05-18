@@ -30,4 +30,10 @@ public class CollectionGoal : Goal {
             Evaluate();
         }
     }
+
+    public override void Complete()
+    {
+        base.Complete();
+        EventHandler.OnItemAddedToInventory -= ItemPickedUp;
+    }
 }

@@ -8,7 +8,7 @@ public class NPC : Interactable {
     public string NpcName = "???";
     public string[] dialogue;
 
-    
+    public int numberOfAnswersPerQuestion = 2;
     public string[] allAnswers;
     public int[] indexOfAnswers;
 
@@ -17,6 +17,7 @@ public class NPC : Interactable {
     private GameObject hero;
     private NavMeshAgent playerNavMesh;
     private PlayerMovement playerMovement;
+
     [HideInInspector]
     public string[][] Answers { get; set; }
     private bool isInteracting = false;
@@ -29,26 +30,37 @@ public class NPC : Interactable {
         playerMovement = hero.GetComponent<PlayerMovement>();
         descriptionText = NpcName;
 
-        Answers = new string[allAnswers.Length / 2][];
-        for (int i = 0; i < allAnswers.Length / 2; i++)
+        int n = numberOfAnswersPerQuestion;
+        if (n != 2 || n != 4) n = 2;
+
+        Answers = new string[allAnswers.Length / n][];
+        for (int i = 0; i < allAnswers.Length / n; i++)
         {
-            Answers[i] = new string[2];
-            Answers[i][0] = allAnswers[2 * i];
-            Answers[i][1] = allAnswers[2 * i + 1];
+            Answers[i] = new string[n];
+            Answers[i][0] = allAnswers[n * i];
+            Answers[i][1] = allAnswers[n * i + 1];
+            if (n == 4)
+            {
+                Answers[i][2] = allAnswers[n * i + 2];
+                Answers[i][3] = allAnswers[n * i + 3];
+            }
         }
     }
 
     private void LateUpdate()
     {
-        if (isInteracting)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(hero.transform.position), 0.5f * Time.deltaTime); // rotation...
+       // if (isInteracting)
+           // transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(hero.transform.position), 0.5f * Time.deltaTime); // rotation...
     }
 
     public override void Interact()
     {
         //DialogueSystem.Instance.AddNewMonologue(NpcName, dialogue, this);
-        DialogueSystem.Instance.AddNewDialogue(NpcName, dialogue, this, Answers, indexOfAnswers);
+        DialogueSystem.Instance.AddNewDialogue(NpcName, dialogue, this, Answers, indexOfAnswers, numberOfAnswersPerQuestion);
+		if (tupoiNPC != null) 
+		{
         tupoiNPC.StopWalking();
+		}
         // rotation...
         isInteracting = true;
         //
@@ -58,7 +70,10 @@ public class NPC : Interactable {
 
     public override void AfterInteract()
     {
+		if (tupoiNPC != null) 
+		{
         tupoiNPC.ContinueWandering();
+		}
         playerMovement.StopFollowing();
         playerNavMesh.ResetPath();
         playerNavMesh.isStopped = false;

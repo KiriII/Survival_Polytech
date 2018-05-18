@@ -14,16 +14,19 @@ public class TupoiNPC : MonoBehaviour
     private bool newWay;
     private bool playerFollowing;
     private bool isStoped;
+	private Animator anim;
 
 
     void Start()
     {
+		anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
         SetRandomDestination();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         newWay = false;
         playerFollowing = false;
         isStoped = false;
+		anim.enabled = true;
     }
 
     void Update()
@@ -31,12 +34,13 @@ public class TupoiNPC : MonoBehaviour
         if (!isStoped)
         {
             if (!newWay && !playerFollowing && (nav.remainingDistance <= nav.stoppingDistance || nav.isStopped))
-            {
+            {	
+				anim.SetBool("IsWalking",false);
                 StartCoroutine(newRandomDestination(waitingTime));
                 newWay = true;
             }
             else
-            {
+            {	
                 if (playerFollowing)
                     nav.SetDestination(player.position);
             }
@@ -48,21 +52,25 @@ public class TupoiNPC : MonoBehaviour
         yield return new WaitForSeconds(value);
         SetRandomDestination();
         newWay = false;
+		anim.SetBool("IsWalking", true);
     }
 
     public void SetRandomDestination()
     {
         nav.SetDestination(destinations[Random.Range(0, destinations.Length)].position);
+		anim.SetBool("IsWalking", true);
     }
 
     public void SetDestination(int arrayIndex)
     {
         nav.SetDestination(destinations[arrayIndex].position);
+		anim.SetBool("IsWalking", true);
     }
 
     public void SetCustomDestination(Transform newTarget)
     {
         nav.SetDestination(newTarget.position);
+		anim.SetBool("IsWalking", true);
     }
 
     public void SetPlayerFollowing(bool isFollowing)
@@ -72,6 +80,7 @@ public class TupoiNPC : MonoBehaviour
 
     public void StopWalking()
     {
+		anim.SetBool("IsWalking", false);
         nav.isStopped = true;
         isStoped = true;
     }
